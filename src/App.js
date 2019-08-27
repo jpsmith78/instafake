@@ -15,7 +15,7 @@ export default class App extends Component {
       photos: [],
       loggedInStatus: "NOT LOGGED IN",
       currentUser: {},
-      message: ""
+      message: []
     }
   };
 
@@ -36,7 +36,7 @@ export default class App extends Component {
   // =======================================
   closeMessage = () => {
     this.setState({
-      message: ""
+      message: []
     })
   }
   // ======================================
@@ -104,7 +104,7 @@ export default class App extends Component {
       }
       else {
         this.setState({
-          message: "photo updated successfully"
+          message: ["photo updated successfully"]
         })
       }
 
