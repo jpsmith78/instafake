@@ -29,7 +29,6 @@ export default class PhotoUpdateForm extends Component {
     event.preventDefault();
     this.props.handlePhotoUpdate(this.state)
     console.log(this.props.photo);
-    console.log(this.props.message);
   }
 
   // ===============================
@@ -48,20 +47,7 @@ export default class PhotoUpdateForm extends Component {
   render(){
     return(
       <div>
-        { this.props.message.length >= 1 ?
-        <div>
-          {this.props.message.map((message, index)=>{
-            return(
-              <ul
-                key={index}
-                message={message}>
-                  <li>{message}</li>
-              </ul>
-            )
-          })}
-          <button onClick={this.props.closeMessage}>X</button>
-        </div>
-        : ""}
+
         <h3>update photo</h3>
         <form onSubmit={this.handleUpdateSubmit}>
           <input

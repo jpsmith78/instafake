@@ -29,8 +29,7 @@ export default class Photo extends Component {
                 photo={this.props.photo}
                 arrayIndex={this.props.arrayIndex}
                 handlePhotoUpdate={this.props.handlePhotoUpdate}
-                message={this.props.message}
-                closeMessage={this.props.closeMessage}
+
 
               />
           </div>

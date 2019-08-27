@@ -5,6 +5,7 @@ import Header from './components/Header';
 import PhotoCreateForm from './components/PhotoCreateForm';
 import UserCreateForm from './components/UserCreateForm';
 
+
 export default class App extends Component {
   constructor(){
     super();
@@ -234,17 +235,15 @@ export default class App extends Component {
           handleLogout={this.handleLogout}
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
-          message={this.state.message}
-          closeMessage={this.closeMessage}
         />
-      <PhotoCreateForm
-          fetchPhotos={this.fetchPhotos}
-          handleView={this.handleView}
-        />
-      <UserCreateForm
-          fetchUsers={this.fetchUsers}
-          handleView={this.handleView}
-        />
+        <PhotoCreateForm
+            fetchPhotos={this.fetchPhotos}
+            handleView={this.handleView}
+          />
+        <UserCreateForm
+            fetchUsers={this.fetchUsers}
+            handleView={this.handleView}
+          />
         <List
           currentView={this.state.currentView}
           photos={this.state.photos}

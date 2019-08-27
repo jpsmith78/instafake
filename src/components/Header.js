@@ -16,12 +16,13 @@ export default class Header extends Component {
 
   render(){
     return(
-      <div>
+      <div className="header">
         <h1>Welcome to Instafake</h1>
-        <h2>{this.props.loggedInStatus}</h2>
+
         {this.props.currentUser.id ?
         <h2>Welcome, {this.props.currentUser.username}</h2>
         : "" }
+
         <nav>
           <button onClick={() => {
             this.props.handleView('users')
@@ -29,24 +30,18 @@ export default class Header extends Component {
           <button onClick={() => {
             this.props.handleView('photos')
           }}>Photos</button>
+
+          {this.props.currentUser.id ?
+            <button onClick={ () => {
+              this.handleLogoutClick()
+            }}>Logout</button>
+          :
+            <Login
+              handleLogin={this.props.handleLogin}
+            />
+          }
         </nav>
-        { this.props.message.length > 0 ?
-          <div>
-            <h3>{this.props.message}</h3>
-            <button onClick={this.props.closeMessage}>X</button>
-          </div>
-        : ""}
-        {  this.props.currentUser.id ?
-          <button onClick={ () => {
-            this.handleLogoutClick()
-          }}>Logout</button>
-      :
-      <Login
-        handleLogin={this.props.handleLogin}
-        message={this.props.message}
-        closeMessage={this.props.closeMessage}
-      />
-  }
+
       </div>
     )
   }

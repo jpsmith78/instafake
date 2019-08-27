@@ -2,10 +2,26 @@ import React, { Component } from 'react';
 import Photo from './Photo';
 import User from './User';
 
+
 export default class List extends Component {
   render(){
     return(
       <div>
+        { this.props.message.length >= 1 ?
+        <div>
+
+          {this.props.message.map((message, index)=>{
+            return(
+              <ul
+                key={index}
+                message={message}>
+                  <li>{message}</li>
+              </ul>
+            )
+          })}
+          <button onClick={this.props.closeMessage}>X</button>
+        </div>
+        : ""}
 
         {this.props.currentView === 'photos' ?
         <div>
@@ -22,8 +38,6 @@ export default class List extends Component {
                   handlePhotoUpdate={this.props.handlePhotoUpdate}
                   currentArray='photos'
                   currentUser={this.props.currentUser}
-                  message={this.props.message}
-                  closeMessage={this.props.closeMessage}
 
                 />
               )

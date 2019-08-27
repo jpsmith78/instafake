@@ -7,7 +7,8 @@ export default class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loginView: "hide"
     }
   }
 
@@ -32,7 +33,7 @@ export default class Login extends Component {
     )
     .then(response => {
       this.props.handleLogin(response.data)
-      console.log(response);
+      console.log(response)
     })
     .catch(error => {
       console.log(error);
@@ -40,34 +41,49 @@ export default class Login extends Component {
     event.preventDefault()
   }
 
-
+  handleLoginView = (view) => {
+    this.setState({
+      loginView: view
+    })
+  }
 
 
   render(){
     return(
       <div>
-
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <button type="submit">Login</button>
-        </form>
-
+        {this.state.loginView === "hide" ?
+          <div>
+            <button onClick={() => {
+              this.handleLoginView("show")
+            }}>Log In</button>
+          </div>
+          :
+          <div className="modal">
+            <h1>Log In</h1>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+              />
+            <button type="submit">Login</button>
+            <button onClick={() => {
+              this.handleLoginView("hide")
+            } }>close</button>
+            </form>
+          </div>
+        }
 
 
       </div>
