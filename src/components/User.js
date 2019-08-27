@@ -19,6 +19,8 @@ export default class User extends Component {
             </div>
           )
         })}
+        <button onClick={() => {
+        this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
       </div>
     )
   }

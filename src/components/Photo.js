@@ -20,19 +20,24 @@ export default class Photo extends Component {
           <small>Updated <Timestamp relative  date={this.props.photo.updated_at}/></small>
           <h4>Created by: {this.props.photo.user.username}</h4>
 
-          <button onClick={() => {
-          this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
-          { this.props.photo.user.id === this.props.currentUser.id ?
-          <PhotoUpdateForm
-              photo={this.props.photo}
-              arrayIndex={this.props.arrayIndex}
-              handlePhotoUpdate={this.props.handlePhotoUpdate}
-              message={this.props.message}
-              closeMessage={this.props.closeMessage}
 
-            />
+          { this.props.photo.user_id === this.props.currentUser.id ?
+          <div>
+            <button onClick={() => {
+            this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+            <PhotoUpdateForm
+                photo={this.props.photo}
+                arrayIndex={this.props.arrayIndex}
+                handlePhotoUpdate={this.props.handlePhotoUpdate}
+                message={this.props.message}
+                closeMessage={this.props.closeMessage}
+
+              />
+          </div>
+
             : ""
        }
+        <hr></hr>
       </div>
 
     )

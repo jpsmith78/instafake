@@ -48,6 +48,17 @@ export default class UserCreateForm extends Component {
       this.props.fetchUsers()
       this.props.handleView('users')
       this.clearUserForm()
+      if (!response.data.errors) {
+        this.setState({
+          message: ["user created"]
+        })
+        console.log(this.state.message);
+      }else {
+        this.setState({
+          message:  response.data.errors
+        })
+        console.log(this.state.message);
+      }
     })
     .catch(error => {
       console.log(error)
@@ -71,7 +82,24 @@ export default class UserCreateForm extends Component {
   render(){
     return(
       <div>
-
+        {this.state.message ?
+        <div>
+          {this.state.message.map((message, index)=>{
+            return(
+              <ul
+                key={index}
+                message={message}>
+                  <li>{message}</li>
+              </ul>
+            )
+          })}
+          <button onClick={() => {
+              this.setState({
+                message: ""
+          })
+        }}>X</button>
+        </div>
+        : "" }
         <hr></hr>
         <h3>register new user</h3>
         <form onSubmit={this.handleSubmit}>

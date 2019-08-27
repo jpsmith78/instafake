@@ -50,19 +50,14 @@ export default class PhotoCreateForm extends Component {
       this.clearPhotoForm()
       if (!response.data.errors) {
         this.setState({
-          message: "photo created"
+          message: ["photo created"]
         })
+        console.log(this.state.message);
       }else {
-        if (response.data.errors.length === 2) {
-          this.setState({
-            message: "Post was not created: " + response.data.errors[0] + ', and ' + response.data.errors[1]
-          })
-        } else {
-          this.setState({
-            message: "photo creation failed: " + response.data.errors[0]
-          })
-        }
-
+        this.setState({
+          message:  response.data.errors
+        })
+        console.log(this.state.message);
       }
 
     })
@@ -91,7 +86,15 @@ export default class PhotoCreateForm extends Component {
       <div>
         {this.state.message ?
         <div>
-          <h3>{this.state.message}</h3>
+          {this.state.message.map((message, index)=>{
+            return(
+              <ul
+                key={index}
+                message={message}>
+                  <li>{message}</li>
+              </ul>
+            )
+          })}
           <button onClick={() => {
               this.setState({
                 message: ""

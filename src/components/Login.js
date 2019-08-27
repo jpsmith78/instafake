@@ -17,8 +17,8 @@ export default class Login extends Component {
     })
   }
 
-  handleSubmit = (event) => {
 
+  handleSubmit = (event) => {
     const { email, password } = this.state;
 
     axios.post("http://localhost:3000/sessions",
@@ -32,7 +32,7 @@ export default class Login extends Component {
     )
     .then(response => {
       this.props.handleLogin(response.data)
-      console.log(response.data.user);
+      console.log(response);
     })
     .catch(error => {
       console.log(error);
@@ -46,6 +46,7 @@ export default class Login extends Component {
   render(){
     return(
       <div>
+
         <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
           <input

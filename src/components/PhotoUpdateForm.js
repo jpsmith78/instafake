@@ -48,7 +48,7 @@ export default class PhotoUpdateForm extends Component {
   render(){
     return(
       <div>
-        { this.props.message ?
+        { this.props.message.length >= 1 ?
         <div>
           {this.props.message.map((message, index)=>{
             return(

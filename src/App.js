@@ -154,24 +154,43 @@ export default class App extends Component {
     })
   }
 
+  handleUserDelete = (id, arrayIndex, currentArray) => {
+    axios.delete('http://localhost:3000/users/' + id)
+    .then(response => {
+      console.log(response.data);
+      this.removeFromArray(currentArray, arrayIndex)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
   // ======================================
   // <<<<<<<<< LOGIN FUNCTIONS >>>>>>>>
   // =======================================
   handleLogin = (data) => {
-    this.setState({
-      loggedInStatus: "LOGGED IN",
-      currentUser: data.user
-    })
+    if(data.logged_in){
+      this.setState({
+        loggedInStatus: "LOGGED IN",
+        currentUser: data.user,
+        message: ["Login Successful"]
+      })
+    }else {
+      this.setState({
+        message: ["Incorrect Login"]
+      })
+    }
+
   }
 
   handleLogout = () => {
     this.setState({
       loggedInStatus: "NOT LOGGED IN",
-      currentUser: {}
+      currentUser: {},
+      message: ["Logout Success"]
     })
   }
 
-  checkLoginStatus(){
+  checkLoginStatus = () => {
     axios.get("http://localhost:3000/logged_in", { withCredentials: true})
       .then(response =>{
         if (response.data.logged_in && this.state.loggedInStatus === "NOT LOGGED IN") {
@@ -216,6 +235,7 @@ export default class App extends Component {
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
           message={this.state.message}
+          closeMessage={this.closeMessage}
         />
       <PhotoCreateForm
           fetchPhotos={this.fetchPhotos}
@@ -231,6 +251,7 @@ export default class App extends Component {
           users={this.state.users}
           handlePhotoDelete={this.handlePhotoDelete}
           handlePhotoUpdate={this.handlePhotoUpdate}
+          handleUserDelete={this.handleUserDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}

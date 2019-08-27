@@ -39,6 +39,12 @@ export default class List extends Component {
                   <User
                     key={index}
                     user={user}
+                    arrayIndex={index}
+                    handleUserDelete={this.props.handleUserDelete}
+                    currentArray='users'
+                    currentUser={this.props.currentUser}
+                    message={this.props.message}
+                    closeMessage={this.props.closeMessage}
                   />
                 )
               })}
