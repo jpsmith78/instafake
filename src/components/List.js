@@ -55,10 +55,9 @@ export default class List extends Component {
                     user={user}
                     arrayIndex={index}
                     handleUserDelete={this.props.handleUserDelete}
+                    handleUserUpdate={this.props.handleUserUpdate}
                     currentArray='users'
                     currentUser={this.props.currentUser}
-                    message={this.props.message}
-                    closeMessage={this.props.closeMessage}
                   />
                 )
               })}

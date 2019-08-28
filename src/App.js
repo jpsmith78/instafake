@@ -166,6 +166,10 @@ export default class App extends Component {
       })
   }
 
+
+  // ======================================
+  // <<<<<<SET USERS>>>>>>>>
+  // =======================================
   setUsers = (user) => {
     this.setState({
       users: user
@@ -204,7 +208,42 @@ export default class App extends Component {
     })
   }
 
+  // ======================================
+  // <<<<<<<<HANDLE USER UPDATE>>>>>>>>
+  // =======================================
+  handleUserUpdate = (user, arrayIndex, currentArray) => {
 
+    fetch('http://localhost:3000/users/' + user.id, {
+      body: JSON.stringify(user),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(response => {
+      if(response.errors){
+        this.setState({
+          message: response.errors
+        })
+      }
+      else {
+        this.setState({
+          message: ["user updated successfully"]
+        })
+      }
+    })
+    .then(response =>{
+      this.fetchUsers()
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 
 
 // ======================================
@@ -301,6 +340,7 @@ export default class App extends Component {
           handlePhotoDelete={this.handlePhotoDelete}
           handlePhotoUpdate={this.handlePhotoUpdate}
           handleUserDelete={this.handleUserDelete}
+          handleUserUpdate={this.handleUserUpdate}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}

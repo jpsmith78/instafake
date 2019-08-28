@@ -27,9 +27,11 @@ export default class Header extends Component {
         <nav>
           <button onClick={() => {
             this.props.handleView('users')
+            this.props.fetchUsers()
           }}>Users</button>
           <button onClick={() => {
             this.props.handleView('photos')
+            this.props.fetchPhotos()
           }}>Photos</button>
 
           {this.props.currentUser.id ?
@@ -39,6 +41,7 @@ export default class Header extends Component {
               }}>Logout</button>
               <PhotoCreateForm
                 fetchPhotos={this.props.fetchPhotos}
+                fetchUsers={this.props.fetchPhotos}
                 handleView={this.props.handleView}
                 handlePhotoCreate={this.props.handlePhotoCreate}
               />

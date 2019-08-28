@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Timestamp from 'react-timestamp';
-
+import UserUpdateForm from './UserUpdateForm';
 
 export default class User extends Component {
   render(){
@@ -21,6 +21,11 @@ export default class User extends Component {
         })}
         <button onClick={() => {
         this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+        <UserUpdateForm
+          user={this.props.user}
+          arrayIndex={this.props.arrayIndex}
+          handleUserUpdate={this.props.handleUserUpdate}
+        />
       </div>
     )
   }
