@@ -250,7 +250,7 @@ export default class App extends Component {
 // <<<<<<<<< LOGIN FUNCTIONS >>>>>>>>
 // =======================================
 // ======================================
-// <<<<<<<<< HAANDLE LOGIN >>>>>>>>
+// <<<<<<<<< HANDLE LOGIN >>>>>>>>
 // =======================================
   handleLogin = (data) => {
     if(data.logged_in){

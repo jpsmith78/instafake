@@ -9,7 +9,7 @@ export default class UserCreateForm extends Component {
       username: "",
       email: "",
       password: "",
-      userFromView: "hide"
+      userFormView: "hide"
     }
   }
 

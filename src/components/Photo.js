@@ -22,17 +22,15 @@ export default class Photo extends Component {
 
 
           { this.props.photo.user_id === this.props.currentUser.id ?
-          <div>
-            <button onClick={() => {
-            this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
-            <PhotoUpdateForm
-                photo={this.props.photo}
-                arrayIndex={this.props.arrayIndex}
-                handlePhotoUpdate={this.props.handlePhotoUpdate}
-
-
-              />
-          </div>
+            <div>
+              <button onClick={() => {
+              this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+              <PhotoUpdateForm
+                  photo={this.props.photo}
+                  arrayIndex={this.props.arrayIndex}
+                  handlePhotoUpdate={this.props.handlePhotoUpdate} 
+                />
+            </div>
 
             : ""
        }

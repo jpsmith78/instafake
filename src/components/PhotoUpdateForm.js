@@ -32,24 +32,20 @@ export default class PhotoUpdateForm extends Component {
     console.log(this.props.photo);
   }
 
-  // ===============================
-  // <<<<<<<<CLEAR PHOTO FORM>>>>>>>>
-  // ===============================
-  clearPhotoForm = () => {
-    this.setState({
-      title: "",
-      picture: "",
-      description: ""
-    })
-  }
 
+
+// ===============================
+// <<<<<<<HANDLE VIEW UPDATE>>>>>>>>
+// ===============================
   handlePhotoUpdateView = (view) => {
     this.setState({
       photoUpdateView: view
     })
   }
 
-
+  // ===============================
+  // <<<<<<RENDER>>>>>>>>
+  // ===============================
   render(){
     return(
       <div>

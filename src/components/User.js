@@ -6,6 +6,7 @@ export default class User extends Component {
   render(){
     return(
       <div>
+
         <h3>{this.props.user.username}</h3>
         <h4>{this.props.user.email}</h4>
         <small>Created on <Timestamp date={this.props.user.created_at}/></small><br/>
@@ -19,13 +20,17 @@ export default class User extends Component {
             </div>
           )
         })}
-        <button onClick={() => {
-        this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
-        <UserUpdateForm
-          user={this.props.user}
-          arrayIndex={this.props.arrayIndex}
-          handleUserUpdate={this.props.handleUserUpdate}
-        />
+        {this.props.user.id === this.props.currentUser.id ?
+        <div>
+          <button onClick={() => {
+          this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+          <UserUpdateForm
+            user={this.props.user}
+            arrayIndex={this.props.arrayIndex}
+            handleUserUpdate={this.props.handleUserUpdate}
+          />
+        </div>
+        : "" }
       </div>
     )
   }
