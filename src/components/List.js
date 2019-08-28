@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
 import User from './User';
-
+import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 export default class List extends Component {
   render(){
@@ -9,17 +10,18 @@ export default class List extends Component {
       <div>
         { this.props.message.length >= 1 ?
         <div>
-
+          <Alert variant="info">
           {this.props.message.map((message, index)=>{
             return(
-              <ul
+              <div
                 key={index}
                 message={message}>
-                  <li>{message}</li>
-              </ul>
+                  <p>{message}</p>
+              </div>
             )
           })}
-          <button onClick={this.props.closeMessage}>X</button>
+          <Button onClick={this.props.closeMessage}>OK</Button>
+          </Alert>
         </div>
         : ""}
 

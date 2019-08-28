@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
+import Nav from 'react-bootstrap/Nav'
 import Login from './Login';
 import PhotoCreateForm from './PhotoCreateForm';
 import UserCreateForm from './UserCreateForm';
@@ -24,42 +26,53 @@ export default class Header extends Component {
         <h2>Welcome, {this.props.currentUser.username}</h2>
         : "" }
 
-        <nav>
-          <button onClick={() => {
-            this.props.handleView('users')
-            this.props.fetchUsers()
-          }}>Users</button>
-          <button onClick={() => {
-            this.props.handleView('photos')
-            this.props.fetchPhotos()
-          }}>Photos</button>
-
+        <Nav>
+          <Nav.Item>
+            <Button onClick={() => {
+              this.props.handleView('users')
+              this.props.fetchUsers()
+            }}>Users</Button>
+          </Nav.Item>
+          <Nav.Item>
+            <Button onClick={() => {
+              this.props.handleView('photos')
+              this.props.fetchPhotos()
+            }}>Photos</Button>
+          </Nav.Item>
           {this.props.currentUser.id ?
-            <div>
-              <button onClick={ () => {
-                this.handleLogoutClick()
-              }}>Logout</button>
-              <PhotoCreateForm
-                fetchPhotos={this.props.fetchPhotos}
-                fetchUsers={this.props.fetchPhotos}
-                handleView={this.props.handleView}
-                handlePhotoCreate={this.props.handlePhotoCreate}
-              />
-            </div>
+            <Nav>
+              <Nav.Item>
+                <Button onClick={ () => {
+                  this.handleLogoutClick()
+                }}>Logout</Button>
+              </Nav.Item>
+              <Nav.Item>
+                <PhotoCreateForm
+                  fetchPhotos={this.props.fetchPhotos}
+                  fetchUsers={this.props.fetchPhotos}
+                  handleView={this.props.handleView}
+                  handlePhotoCreate={this.props.handlePhotoCreate}
+                />
+              </Nav.Item>
+            </Nav>
           :
-            <div>
-              <Login
-                handleLogin={this.props.handleLogin}
-              />
-              <UserCreateForm
-                fetchUsers={this.props.fetchPhotos}
-                handleView={this.props.handleView}
-                handleUserCreate={this.props.handlePhotoCreate}
-              />
-            </div>
+            <Nav>
+              <Nav.Item>
+                <Login
+                  handleLogin={this.props.handleLogin}
+                />
+              </Nav.Item>
+              <Nav.Item>
+                <UserCreateForm
+                  fetchUsers={this.props.fetchPhotos}
+                  handleView={this.props.handleView}
+                  handleUserCreate={this.props.handlePhotoCreate}
+                />
+              </Nav.Item>
+          </Nav>
           }
 
-        </nav>
+        </Nav>
 
       </div>
     )

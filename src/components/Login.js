@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
 
 export default class Login extends Component {
   constructor(props){
@@ -53,12 +54,12 @@ export default class Login extends Component {
       <div>
         {this.state.loginView === "hide" ?
           <div>
-            <button onClick={() => {
+            <Button onClick={() => {
               this.handleLoginView("show")
-            }}>Log In</button>
+            }}>Log In</Button>
           </div>
           :
-          <div className="modal">
+          <div>
             <h1>Log In</h1>
             <form onSubmit={this.handleSubmit}>
               <input
@@ -77,10 +78,10 @@ export default class Login extends Component {
                 onChange={this.handleChange}
                 required
               />
-            <button type="submit">Login</button>
-            <button onClick={() => {
+            <Button type="submit">Login</Button>
+            <Button onClick={() => {
               this.handleLoginView("hide")
-            } }>close</button>
+            } }>close</Button>
             </form>
           </div>
         }

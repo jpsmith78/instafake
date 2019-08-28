@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
 
 export default class UserCreateForm extends Component {
   constructor(props){
@@ -81,11 +82,11 @@ export default class UserCreateForm extends Component {
     return(
       <div>
         {this.state.userFormView === "hide" ?
-          <button onClick={() => {
+          <Button onClick={() => {
             this.setState({
               userFormView: "show"
             })
-          }}>Register User</button>
+          }}>Register User</Button>
         :
         <div>
           <h3>register new user</h3>
@@ -116,12 +117,12 @@ export default class UserCreateForm extends Component {
               onChange={this.handleChange}
               required
             />
-          <button type="submit">Register User</button>
-              <button onClick={() => {
-                this.setState({
-                  userFormView: "hide"
-                })
-              }}>Hide form</button>
+            <Button type="submit">Register User</Button>
+            <Button onClick={() => {
+              this.setState({
+                userFormView: "hide"
+              })
+            }}>Hide form</Button>
           </form>
         </div>
         }

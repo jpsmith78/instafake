@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container'
+
 
 export default class PhotoCreateForm extends Component {
   constructor(props){
@@ -79,7 +84,6 @@ export default class PhotoCreateForm extends Component {
   }
 
 
-
 // ===============================
 // <<<<<<<<CLEAR PHOTO FORM>>>>>>>>
 // ===============================
@@ -87,48 +91,67 @@ export default class PhotoCreateForm extends Component {
     return(
       <div>
         { this.state.photoFormView === "hide" ?
-          <button onClick={() => {
+          <Button onClick={() => {
             this.setState({
               photoFormView: "show"
             })
-          }}>Post Photo</button>
+          }}>Post Photo</Button>
         :
-        <div>
-        <h3>create photo</h3>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            placeholder="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-            required
-          />
+        <Modal show>
+        <Modal.Dialog>
+          <Modal.Header>
+            <Container>
+              <h3>create photo</h3>
+            </Container>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group>
+              <input
+                type="text"
+                name="title"
+                placeholder="title"
+                value={this.state.title}
+                onChange={this.handleChange}
+                required
+              />
+              </Form.Group>
+              <Form.Group>
+              <input
+                type="text"
+                name="picture"
+                placeholder="picture"
+                value={this.state.picture}
+                onChange={this.handleChange}
+                required
+              />
+              </Form.Group>
+              <Form.Group>
+              <textarea
+                name="description"
+                placeholder="description"
+                value={this.state.description}
+                onChange={this.handleChange}
+                required
+              />
+          </Form.Group>
+              <Form.Group>
+              <Button type="submit" >Create Photo</Button>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Container>
+                  <Button onClick={() => {
+                    this.setState({
+                      photoFormView: "hide"
+                    })
+                  }}>Hide form</Button>
+            </Container>
 
-          <input
-            type="text"
-            name="picture"
-            placeholder="picture"
-            value={this.state.picture}
-            onChange={this.handleChange}
-            required
-          />
-
-          <textarea
-            name="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.handleChange}
-            required
-          />
-          <button type="submit" >Create Photo</button>
-          <button onClick={() => {
-            this.setState({
-              photoFormView: "hide"
-            })
-          }}>Hide form</button>
-        </form>
-        </div>
+          </Modal.Footer>
+      </Modal.Dialog>
+      </Modal>
         }
       </div>
     )
