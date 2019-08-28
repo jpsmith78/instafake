@@ -8,7 +8,8 @@ export default class PhotoUpdateForm extends Component {
       id: this.props.photo.id,
       title: this.props.photo.title,
       picture: this.props.photo.picture,
-      description: this.props.photo.description
+      description: this.props.photo.description,
+      photoUpdateView: "hide"
     }
   }
 
@@ -42,40 +43,59 @@ export default class PhotoUpdateForm extends Component {
     })
   }
 
+  handlePhotoUpdateView = (view) => {
+    this.setState({
+      photoUpdateView: view
+    })
+  }
 
 
   render(){
     return(
       <div>
+        { this.state.photoUpdateView === "hide" ?
+          <button onClick={() => {
+            this.setState({
+              photoUpdateView: "show"
+            })
+          }}>Update</button>
+          :
+          <div>
+            <h3>update photo</h3>
+            <form onSubmit={this.handleUpdateSubmit}>
+              <input
+                type="text"
+                name="title"
+                placeholder="title"
+                value={this.state.title}
+                onChange={this.handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="picture"
+                placeholder="picture"
+                value={this.state.picture}
+                onChange={this.handleChange}
+                required
+              />
+              <textarea
+                name="description"
+                placeholder="description"
+                value={this.state.description}
+                onChange={this.handleChange}
+                required
+              />
+              <button type="submit">Update Photo</button>
+              <button onClick={() => {
+                this.setState({
+                  photoUpdateView: "hide"
+                })
+              }}>Hide form</button>
+            </form>
+          </div>
+        }
 
-        <h3>update photo</h3>
-        <form onSubmit={this.handleUpdateSubmit}>
-          <input
-            type="text"
-            name="title"
-            placeholder="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="picture"
-            placeholder="picture"
-            value={this.state.picture}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.handleChange}
-            required
-          />
-          <button type="submit">Update Photo</button>
-        </form>
       </div>
     )
   }

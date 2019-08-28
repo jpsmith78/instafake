@@ -8,7 +8,8 @@ export default class UserCreateForm extends Component {
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      userFromView: "hide"
     }
   }
 
@@ -48,17 +49,7 @@ export default class UserCreateForm extends Component {
       this.props.fetchUsers()
       this.props.handleView('users')
       this.clearUserForm()
-      if (!response.data.errors) {
-        this.setState({
-          message: ["user created"]
-        })
-        console.log(this.state.message);
-      }else {
-        this.setState({
-          message:  response.data.errors
-        })
-        console.log(this.state.message);
-      }
+      this.props.handleUserCreate(response.data)
     })
     .catch(error => {
       console.log(error)
@@ -77,61 +68,64 @@ export default class UserCreateForm extends Component {
     })
   }
 
-
+// ===============================
+// <<<<<<<<CREATE PHOTO VIEW>>>>>>>>
+// ===============================
+  handleUserCreateView = (view) => {
+    this.setState({
+      userFormView: view
+    })
+  }
 
   render(){
     return(
       <div>
-        {this.state.message ?
-        <div>
-          {this.state.message.map((message, index)=>{
-            return(
-              <ul
-                key={index}
-                message={message}>
-                  <li>{message}</li>
-              </ul>
-            )
-          })}
+        {this.state.userFormView === "hide" ?
           <button onClick={() => {
-              this.setState({
-                message: ""
-          })
-        }}>X</button>
+            this.setState({
+              userFormView: "show"
+            })
+          }}>Register User</button>
+        :
+        <div>
+          <h3>register new user</h3>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="username"
+              placeholder="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+              required
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+              required
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              required
+            />
+          <button type="submit">Register User</button>
+              <button onClick={() => {
+                this.setState({
+                  userFormView: "hide"
+                })
+              }}>Hide form</button>
+          </form>
         </div>
-        : "" }
-        <hr></hr>
-        <h3>register new user</h3>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            required
-          />
+        }
 
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <button type="submit">Create User</button>
-        </form>
-        <hr></hr>
       </div>
     )
   }

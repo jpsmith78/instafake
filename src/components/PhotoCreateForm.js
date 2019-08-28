@@ -9,7 +9,6 @@ export default class PhotoCreateForm extends Component {
       title: "",
       picture: "",
       description: "",
-      message: this.props.message,
       photoFormView: "hide"
     }
   }
@@ -116,8 +115,7 @@ export default class PhotoCreateForm extends Component {
             required
           />
 
-          <input
-            type="text"
+          <textarea
             name="description"
             placeholder="description"
             value={this.state.description}

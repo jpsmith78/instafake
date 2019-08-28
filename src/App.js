@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import List from './components/List';
 import Header from './components/Header';
-import UserCreateForm from './components/UserCreateForm';
+
 
 
 export default class App extends Component {
@@ -122,7 +122,6 @@ export default class App extends Component {
           message: ["photo updated successfully"]
         })
       }
-
     })
     .then(response =>{
       this.fetchPhotos()
@@ -133,10 +132,12 @@ export default class App extends Component {
   }
 
 
-
-  // ======================================
-  // <<<<<<REMOVE FROM ARRAY>>>>>>>>
-  // =======================================
+// ======================================
+// <<<<<<<<< FOR PHOTOS AND USERS >>>>>>>>
+// =======================================
+// ======================================
+// <<<<<<REMOVE FROM ARRAY>>>>>>>>
+// =======================================
   removeFromArray = (array, arrayIndex) => {
     this.setState((prevState) => {
       prevState[array].splice(arrayIndex, 1)
@@ -146,12 +147,14 @@ export default class App extends Component {
     })
   }
 
-  // ======================================
-  // <<<<<<<<< USERS FUNCTIONS >>>>>>>>
-  // =======================================
-  // ======================================
-  // <<<<<<<<< FETCH USERS >>>>>>>>
-  // =======================================
+
+
+// ======================================
+// <<<<<<<<< USERS FUNCTIONS >>>>>>>>
+// =======================================
+// ======================================
+// <<<<<<<<< FETCH USERS >>>>>>>>
+// =======================================
   fetchUsers = () => {
     axios.get('http://localhost:3000/users')
       .then(response => {
@@ -169,6 +172,27 @@ export default class App extends Component {
     })
   }
 
+
+// ======================================
+// <<<<<<<HANDLE USER CREATE >>>>>>>>
+// =======================================
+  handleUserCreate = (data) => {
+    if (!data.errors) {
+      this.setState({
+        message: ["user created"]
+      })
+      console.log(this.state.message);
+    }else {
+      this.setState({
+        message: data.errors
+      })
+      console.log(this.state.message);
+    }
+  }
+
+// ======================================
+// <<<<<<<<HANDLE USER DELETE>>>>>>>>
+// =======================================
   handleUserDelete = (id, arrayIndex, currentArray) => {
     axios.delete('http://localhost:3000/users/' + id)
     .then(response => {
@@ -179,9 +203,16 @@ export default class App extends Component {
       console.log(error);
     })
   }
-  // ======================================
-  // <<<<<<<<< LOGIN FUNCTIONS >>>>>>>>
-  // =======================================
+
+
+
+
+// ======================================
+// <<<<<<<<< LOGIN FUNCTIONS >>>>>>>>
+// =======================================
+// ======================================
+// <<<<<<<<< HAANDLE LOGIN >>>>>>>>
+// =======================================
   handleLogin = (data) => {
     if(data.logged_in){
       this.setState({
@@ -197,6 +228,9 @@ export default class App extends Component {
 
   }
 
+// ======================================
+// <<<<<<<<< HANDLE LOGOUT >>>>>>>>
+// =======================================
   handleLogout = () => {
     this.setState({
       loggedInStatus: "NOT LOGGED IN",
@@ -205,6 +239,9 @@ export default class App extends Component {
     })
   }
 
+// ======================================
+// <<<<<<<CHECK LOGIN STATUS >>>>>>>>
+// =======================================
   checkLoginStatus = () => {
     axios.get("http://localhost:3000/logged_in", { withCredentials: true})
       .then(response =>{
@@ -225,6 +262,9 @@ export default class App extends Component {
           console.log("check login error", error);
       });
   }
+
+
+
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
   // =======================================
@@ -250,12 +290,10 @@ export default class App extends Component {
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
           fetchPhotos={this.fetchPhotos}
+          fetchUsers={this.fetchUsers}
           handlePhotoCreate={this.handlePhotoCreate}
+          handleUserCreate={this.handleUserCreate}
         />
-        <UserCreateForm
-            fetchUsers={this.fetchUsers}
-            handleView={this.handleView}
-          />
         <List
           currentView={this.state.currentView}
           photos={this.state.photos}

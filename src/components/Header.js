@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Login from './Login';
 import PhotoCreateForm from './PhotoCreateForm';
-
+import UserCreateForm from './UserCreateForm';
 
 
 export default class Header extends Component {
@@ -33,19 +33,29 @@ export default class Header extends Component {
           }}>Photos</button>
 
           {this.props.currentUser.id ?
-            <button onClick={ () => {
-              this.handleLogoutClick()
-            }}>Logout</button>
+            <div>
+              <button onClick={ () => {
+                this.handleLogoutClick()
+              }}>Logout</button>
+              <PhotoCreateForm
+                fetchPhotos={this.props.fetchPhotos}
+                handleView={this.props.handleView}
+                handlePhotoCreate={this.props.handlePhotoCreate}
+              />
+            </div>
           :
-            <Login
-              handleLogin={this.props.handleLogin}
-            />
+            <div>
+              <Login
+                handleLogin={this.props.handleLogin}
+              />
+              <UserCreateForm
+                fetchUsers={this.props.fetchPhotos}
+                handleView={this.props.handleView}
+                handleUserCreate={this.props.handlePhotoCreate}
+              />
+            </div>
           }
-          <PhotoCreateForm
-            fetchPhotos={this.props.fetchPhotos}
-            handleView={this.props.handleView}
-            handlePhotoCreate={this.props.handlePhotoCreate}
-          />
+
         </nav>
 
       </div>
