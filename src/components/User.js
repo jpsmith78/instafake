@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timestamp from 'react-timestamp';
 import UserUpdateForm from './UserUpdateForm';
+import Button from 'react-bootstrap/Button'
 
 export default class User extends Component {
   render(){
@@ -22,8 +23,8 @@ export default class User extends Component {
         })}
         {this.props.user.id === this.props.currentUser.id ?
         <div>
-          <button onClick={() => {
-          this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+          <Button onClick={() => {
+          this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
           <UserUpdateForm
             user={this.props.user}
             arrayIndex={this.props.arrayIndex}

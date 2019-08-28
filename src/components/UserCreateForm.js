@@ -55,6 +55,7 @@ export default class UserCreateForm extends Component {
       this.props.handleView('users')
       this.clearUserForm()
       this.props.handleUserCreate(response.data)
+      this.handleUserCreateView("hide")
     })
     .catch(error => {
       console.log(error)
@@ -90,14 +91,14 @@ export default class UserCreateForm extends Component {
             this.setState({
               userFormView: "show"
             })
-          }}>Register User</Button>
+          }}>Sign Up</Button>
         :
         <div>
           <Modal show>
             <Modal.Dialog>
               <Modal.Header>
                 <Container>
-                  <h3>register new user</h3>
+                  <h3>Sign Up</h3>
                 </Container>
               </Modal.Header>
               <Modal.Body>
@@ -133,7 +134,7 @@ export default class UserCreateForm extends Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Button type="submit">Register User</Button>
+                    <Button type="submit">Sign Up</Button>
                   </Form.Group>
                 </Form>
               </Modal.Body>
@@ -143,13 +144,12 @@ export default class UserCreateForm extends Component {
                   this.setState({
                     userFormView: "hide"
                   })
-                }}>Hide form</Button>
+                }}>Close</Button>
                 </Container>
               </Modal.Footer>
             </Modal.Dialog>
           </Modal>
         </div>
-
         }
 
       </div>

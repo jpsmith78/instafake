@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container'
 
 export default class Login extends Component {
   constructor(props){
@@ -34,6 +37,7 @@ export default class Login extends Component {
     )
     .then(response => {
       this.props.handleLogin(response.data)
+      this.handleLoginView("hide")
       console.log(response)
     })
     .catch(error => {
@@ -60,29 +64,50 @@ export default class Login extends Component {
           </div>
           :
           <div>
-            <h1>Log In</h1>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                required
-              />
-            <Button type="submit">Login</Button>
-            <Button onClick={() => {
-              this.handleLoginView("hide")
-            } }>close</Button>
-            </form>
+            <Modal show>
+              <Modal.Dialog>
+                <Modal.Header>
+                  <Container>
+                    <h1>Log In</h1>
+                  </Container>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={this.handleSubmit}>
+                    <Form.Group>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Button type="submit">Login</Button>
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Container>
+                    <Button onClick={() => {
+                      this.handleLoginView("hide")
+                    } }>close</Button>
+
+                  </Container>
+                </Modal.Footer>
+              </Modal.Dialog>
+            </Modal>
           </div>
         }
 

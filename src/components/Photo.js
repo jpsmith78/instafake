@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PhotoUpdateForm from './PhotoUpdateForm';
 import Timestamp from 'react-timestamp';
+import Button from 'react-bootstrap/Button'
 
 
 export default class Photo extends Component {
-
-
 
   render(){
     return(
@@ -23,12 +22,12 @@ export default class Photo extends Component {
 
           { this.props.photo.user_id === this.props.currentUser.id ?
             <div>
-              <button onClick={() => {
-              this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</button>
+              <Button onClick={() => {
+              this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
               <PhotoUpdateForm
                   photo={this.props.photo}
                   arrayIndex={this.props.arrayIndex}
-                  handlePhotoUpdate={this.props.handlePhotoUpdate} 
+                  handlePhotoUpdate={this.props.handlePhotoUpdate}
                 />
             </div>
 
