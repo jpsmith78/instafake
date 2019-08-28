@@ -198,6 +198,7 @@ export default class App extends Component {
 // <<<<<<<<HANDLE USER DELETE>>>>>>>>
 // =======================================
   handleUserDelete = (id, arrayIndex, currentArray) => {
+    this.handleLogoutClick()
     axios.delete('http://localhost:3000/users/' + id)
     .then(response => {
       console.log(response.data);
@@ -205,7 +206,7 @@ export default class App extends Component {
         message: ["user successfully deleted"]
       })
       this.removeFromArray(currentArray, arrayIndex)
-      this.handleLogoutClick()
+
 
     })
     .catch(error => {

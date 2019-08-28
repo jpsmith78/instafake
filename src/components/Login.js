@@ -15,14 +15,17 @@ export default class Login extends Component {
       loginView: "hide"
     }
   }
-
+  // ==============================
+  // <<<<<<HANDLE CHANGE>>>>>>>>
+  // ==============================
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
-
-
+  // ==============================
+  // <<<<<HANDLE SUBMIT>>>>>>>>
+  // ==============================
   handleSubmit = (event) => {
     const { email, password } = this.state;
 
@@ -38,7 +41,8 @@ export default class Login extends Component {
     .then(response => {
       this.props.handleLogin(response.data)
       this.handleLoginView("hide")
-      console.log(response)
+      this.clearLoginForm()
+      console.log(response.data)
     })
     .catch(error => {
       console.log(error);
@@ -46,13 +50,28 @@ export default class Login extends Component {
     event.preventDefault()
   }
 
+
+  // ==============================
+  // <<<<<<HANDLE LOGIN VIEW>>>>>>>>
+  // ==============================
   handleLoginView = (view) => {
     this.setState({
       loginView: view
     })
   }
+// ==============================
+// <<<<<<CLEAR LOGIN FORM>>>>>>>>
+// ==============================
+  clearLoginForm = () => {
+    this.setState({
+      email: "",
+      password: ""
+    })
+  }
 
-
+// ==============================
+// <<<<<<RENDER>>>>>>>>
+// ==============================
   render(){
     return(
       <div>
@@ -110,8 +129,6 @@ export default class Login extends Component {
             </Modal>
           </div>
         }
-
-
       </div>
     )
   }
