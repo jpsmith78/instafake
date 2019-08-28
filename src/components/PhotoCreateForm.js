@@ -8,7 +8,9 @@ export default class PhotoCreateForm extends Component {
     this.state = {
       title: "",
       picture: "",
-      description: ""
+      description: "",
+      message: this.props.message,
+      photoFormView: "hide"
     }
   }
 
@@ -48,17 +50,7 @@ export default class PhotoCreateForm extends Component {
       this.props.fetchPhotos()
       this.props.handleView('photos')
       this.clearPhotoForm()
-      if (!response.data.errors) {
-        this.setState({
-          message: ["photo created"]
-        })
-        console.log(this.state.message);
-      }else {
-        this.setState({
-          message:  response.data.errors
-        })
-        console.log(this.state.message);
-      }
+      this.props.handlePhotoCreate(response.data)
 
     })
     .catch(error => {
@@ -79,30 +71,31 @@ export default class PhotoCreateForm extends Component {
     })
   }
 
+// ===============================
+// <<<<<<<<CREATE PHOTO VIEW>>>>>>>>
+// ===============================
+  handlePhotoCreateView = (view) => {
+    this.setState({
+      photoFormView: view
+    })
+  }
 
 
+
+// ===============================
+// <<<<<<<<CLEAR PHOTO FORM>>>>>>>>
+// ===============================
   render(){
     return(
       <div>
-        {this.state.message ?
-        <div>
-          {this.state.message.map((message, index)=>{
-            return(
-              <ul
-                key={index}
-                message={message}>
-                  <li>{message}</li>
-              </ul>
-            )
-          })}
+        { this.state.photoFormView === "hide" ?
           <button onClick={() => {
-              this.setState({
-                message: ""
-          })
-        }}>X</button>
-        </div>
-        : "" }
-        <hr></hr>
+            this.setState({
+              photoFormView: "show"
+            })
+          }}>Post Photo</button>
+        :
+        <div>
         <h3>create photo</h3>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -131,9 +124,15 @@ export default class PhotoCreateForm extends Component {
             onChange={this.handleChange}
             required
           />
-          <button type="submit">Create Photo</button>
+          <button type="submit" >Create Photo</button>
+          <button onClick={() => {
+            this.setState({
+              photoFormView: "hide"
+            })
+          }}>Hide form</button>
         </form>
-        <hr></hr>
+        </div>
+        }
       </div>
     )
   }

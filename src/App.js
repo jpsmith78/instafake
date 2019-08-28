@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import List from './components/List';
 import Header from './components/Header';
-import PhotoCreateForm from './components/PhotoCreateForm';
 import UserCreateForm from './components/UserCreateForm';
 
 
@@ -65,7 +64,22 @@ export default class App extends Component {
       photos: photo
     })
   }
-
+  // ======================================
+  // <<<<<<<HANDLE PHOTO CREATE >>>>>>>>
+  // =======================================
+  handlePhotoCreate = (data) => {
+    if (!data.errors) {
+      this.setState({
+        message: ["photo created"]
+      })
+      console.log(this.state.message);
+    }else {
+      this.setState({
+        message: data.errors
+      })
+      console.log(this.state.message);
+    }
+  }
   // ======================================
   // <<<<<<<HANDLE PHOTO DELETE >>>>>>>>
   // =======================================
@@ -235,11 +249,9 @@ export default class App extends Component {
           handleLogout={this.handleLogout}
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
+          fetchPhotos={this.fetchPhotos}
+          handlePhotoCreate={this.handlePhotoCreate}
         />
-        <PhotoCreateForm
-            fetchPhotos={this.fetchPhotos}
-            handleView={this.handleView}
-          />
         <UserCreateForm
             fetchUsers={this.fetchUsers}
             handleView={this.handleView}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Login from './Login';
+import PhotoCreateForm from './PhotoCreateForm';
 
 
 
@@ -40,6 +41,11 @@ export default class Header extends Component {
               handleLogin={this.props.handleLogin}
             />
           }
+          <PhotoCreateForm
+            fetchPhotos={this.props.fetchPhotos}
+            handleView={this.props.handleView}
+            handlePhotoCreate={this.props.handlePhotoCreate}
+          />
         </nav>
 
       </div>
