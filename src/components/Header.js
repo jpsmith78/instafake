@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
 import Login from './Login';
@@ -9,13 +8,7 @@ import UserCreateForm from './UserCreateForm';
 
 export default class Header extends Component {
 
-  handleLogoutClick(){
-    axios.delete("http://localhost:3000/logout", {withCredentials: true}).then(response => {
-      this.props.handleLogout();
-    }).catch(error => {
-      console.log("logout error", error);
-    })
-  }
+
 
   render(){
     return(
@@ -43,7 +36,7 @@ export default class Header extends Component {
             <Nav>
               <Nav.Item>
                 <Button onClick={ () => {
-                  this.handleLogoutClick()
+                  this.props.handleLogoutClick()
                 }}>Logout</Button>
               </Nav.Item>
               <Nav.Item>
@@ -64,7 +57,7 @@ export default class Header extends Component {
               </Nav.Item>
               <Nav.Item>
                 <UserCreateForm
-                  fetchUsers={this.props.fetchPhotos}
+                  fetchUsers={this.props.fetchUsers}
                   handleView={this.props.handleView}
                   handleUserCreate={this.props.handlePhotoCreate}
                 />

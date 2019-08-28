@@ -201,7 +201,12 @@ export default class App extends Component {
     axios.delete('http://localhost:3000/users/' + id)
     .then(response => {
       console.log(response.data);
+      this.setState({
+        message: ["user successfully deleted"]
+      })
       this.removeFromArray(currentArray, arrayIndex)
+      this.handleLogoutClick()
+
     })
     .catch(error => {
       console.log(error);
@@ -278,6 +283,13 @@ export default class App extends Component {
     })
   }
 
+  handleLogoutClick(){
+    axios.delete("http://localhost:3000/logout", {withCredentials: true}).then(response => {
+      this.handleLogout();
+    }).catch(error => {
+      console.log("logout error", error);
+    })
+  }
 // ======================================
 // <<<<<<<CHECK LOGIN STATUS >>>>>>>>
 // =======================================
@@ -326,6 +338,7 @@ export default class App extends Component {
           handleView={this.handleView}
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
+          handleLogoutClick={this.handleLogoutClick}
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
           fetchPhotos={this.fetchPhotos}
