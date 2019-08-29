@@ -22,7 +22,7 @@ export default class User extends Component {
             </div>
           )
         })}
-        {this.props.user.id === this.props.currentUser.id ?
+        {this.props.user.id === this.props.currentUser.id || this.props.currentUser.admin ?
         <div>
           <Button onClick={() => {
           this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>

@@ -20,7 +20,7 @@ export default class Photo extends Component {
           <h4>Created by: {this.props.photo.user.username}</h4>
 
 
-          { this.props.photo.user_id === this.props.currentUser.id ?
+          { this.props.photo.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
             <div>
               <Button onClick={() => {
               this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
