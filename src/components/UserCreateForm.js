@@ -14,6 +14,7 @@ export default class UserCreateForm extends Component {
       username: "",
       email: "",
       password: "",
+      image: "",
       userFormView: "hide"
     }
   }
@@ -37,14 +38,18 @@ export default class UserCreateForm extends Component {
     const {
       username,
       email,
-      password
+      password,
+      image
+
     } = this.state;
 
     axios.post('http://localhost:3000/users', {
       user: {
         username: username,
         email: email,
-        password: password
+        password: password,
+        image: image
+
       }
     },
       { withCredentials: true}
@@ -70,7 +75,8 @@ export default class UserCreateForm extends Component {
     this.setState({
       username: "",
       email: "",
-      password: ""
+      password: "",
+      image: ""
     })
   }
 
@@ -109,6 +115,16 @@ export default class UserCreateForm extends Component {
                       name="username"
                       placeholder="username"
                       value={this.state.username}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <input
+                      type="text"
+                      name="image"
+                      placeholder="image"
+                      value={this.state.image}
                       onChange={this.handleChange}
                       required
                     />

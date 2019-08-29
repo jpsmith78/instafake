@@ -11,6 +11,7 @@ export default class UserUpdateForm extends Component {
     this.state = {
       id: this.props.user.id,
       username: this.props.user.username,
+      image: this.props.user.image,
       email: this.props.user.email,
       userUpdateView: "hide"
     }
@@ -83,6 +84,19 @@ export default class UserUpdateForm extends Component {
                         name="username"
                         placeholder="username"
                         value={this.state.username}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <label>Profile Picture</label>
+                    </Form.Group>
+                    <Form.Group>
+                      <input
+                        type="text"
+                        name="image"
+                        placeholder="profile picture"
+                        value={this.state.image}
                         onChange={this.handleChange}
                         required
                       />

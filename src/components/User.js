@@ -9,6 +9,7 @@ export default class User extends Component {
       <div>
 
         <h3>{this.props.user.username}</h3>
+        <img src={this.props.user.image} alt="broken" width="200px"/>
         <h4>{this.props.user.email}</h4>
         <small>Created on <Timestamp date={this.props.user.created_at}/></small><br/>
         <small>Updated <Timestamp relative  date={this.props.user.updated_at}/></small>
