@@ -232,6 +232,7 @@ export default class App extends Component {
       return response.json()
     })
     .then(response => {
+      console.log(response);
       if(response.errors){
         this.setState({
           message: response.errors
@@ -239,13 +240,13 @@ export default class App extends Component {
       }
       else {
         this.setState({
-          message: ["user updated successfully"]
+          message: ["user updated successfully"],
+          currentUser: response
         })
       }
-    })
-    .then(response =>{
       this.fetchUsers()
     })
+    
     .catch(error => {
       console.log(error);
     })
