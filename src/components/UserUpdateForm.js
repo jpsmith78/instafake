@@ -127,7 +127,7 @@ export default class UserUpdateForm extends Component {
                       this.setState({
                         userUpdateView: "hide"
                       })
-                    }}>CLose</Button>
+                    }}>Close</Button>
                   </Container>
                 </Modal.Footer>
               </Modal.Dialog>

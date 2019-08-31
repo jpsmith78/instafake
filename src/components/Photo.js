@@ -11,10 +11,8 @@ export default class Photo extends Component {
       <div>
 
           <h3>{this.props.photo.title}</h3>
-          <h4>id: {this.props.photo.id}</h4>
-          <h4>Photo: <img src={this.props.photo.picture} alt="broken"/></h4>
+          <img src={this.props.photo.picture} alt="broken" width="200px"/>
           <h5>Description: {this.props.photo.description}</h5>
-          <h4>user id: {this.props.photo.user_id}</h4>
           <small>Created on <Timestamp date={this.props.photo.created_at}/></small><br/>
           <small>Updated <Timestamp relative  date={this.props.photo.updated_at}/></small>
           <h4>Created by: {this.props.photo.user.username}</h4>

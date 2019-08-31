@@ -62,7 +62,7 @@ export default class Header extends Component {
 
                 <PhotoCreateForm
                   fetchPhotos={this.props.fetchPhotos}
-                  fetchUsers={this.props.fetchPhotos}
+                  fetchUsers={this.props.fetchUsers}
                   handleView={this.props.handleView}
                   handlePhotoCreate={this.props.handlePhotoCreate}
                 />

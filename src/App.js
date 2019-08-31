@@ -86,7 +86,10 @@ export default class App extends Component {
   handlePhotoDelete = (id, arrayIndex, currentArray) => {
     axios.delete('http://localhost:3000/photos/' + id)
     .then(response => {
-      console.log(response.data);
+      console.log(response.data)
+      this.setState({
+        message: ["photo successfully deleted"]
+      })
       this.removeFromArray(currentArray, arrayIndex)
     })
     .catch(error => {
@@ -198,7 +201,6 @@ export default class App extends Component {
 // <<<<<<<<HANDLE USER DELETE>>>>>>>>
 // =======================================
   handleUserDelete = (id, arrayIndex, currentArray) => {
-    this.handleLogoutClick()
     axios.delete('http://localhost:3000/users/' + id)
     .then(response => {
       console.log(response.data);
@@ -246,7 +248,7 @@ export default class App extends Component {
       }
       this.fetchUsers()
     })
-    
+
     .catch(error => {
       console.log(error);
     })
@@ -355,6 +357,7 @@ export default class App extends Component {
           handlePhotoDelete={this.handlePhotoDelete}
           handlePhotoUpdate={this.handlePhotoUpdate}
           handleUserDelete={this.handleUserDelete}
+          handleLogoutClick={this.handleLogoutClick}
           handleUserUpdate={this.handleUserUpdate}
           currentUser={this.state.currentUser}
           message={this.state.message}

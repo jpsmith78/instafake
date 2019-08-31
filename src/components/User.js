@@ -22,16 +22,26 @@ export default class User extends Component {
             </div>
           )
         })}
-        {this.props.user.id === this.props.currentUser.id || this.props.currentUser.admin ?
-        <div>
-          <Button onClick={() => {
-          this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
-          <UserUpdateForm
-            user={this.props.user}
-            arrayIndex={this.props.arrayIndex}
-            handleUserUpdate={this.props.handleUserUpdate}
-          />
-        </div>
+        {this.props.user.id === this.props.currentUser.id ?
+          <div>
+            <p>Cannot destroy own account</p>
+            <UserUpdateForm
+              user={this.props.user}
+              arrayIndex={this.props.arrayIndex}
+              handleUserUpdate={this.props.handleUserUpdate}
+            />
+          </div>
+        : this.props.currentUser.admin ?
+          <div>
+            <Button onClick={() => {
+              this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
+            <UserUpdateForm
+              user={this.props.user}
+              arrayIndex={this.props.arrayIndex}
+              handleUserUpdate={this.props.handleUserUpdate}
+            />
+
+          </div>
         : "" }
       </div>
     )
