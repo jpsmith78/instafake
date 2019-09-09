@@ -320,6 +320,7 @@ export default class App extends Component {
 
 
 
+
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
   // =======================================
@@ -329,7 +330,18 @@ export default class App extends Component {
     this.checkLoginStatus();
   }
 
-
+  handleLikeCreate = (data) => {
+    if(!data.errors){
+      this.setState({
+        message: ["photo successfully liked"]
+      })
+    }
+    else {
+      this.setState({
+        message: data.errors
+      })
+    }
+  }
 
 
   // ======================================
@@ -359,9 +371,11 @@ export default class App extends Component {
           handleUserDelete={this.handleUserDelete}
           handleLogoutClick={this.handleLogoutClick}
           handleUserUpdate={this.handleUserUpdate}
+          handleLikeCreate={this.handleLikeCreate}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
+          fetchPhotos={this.fetchPhotos}
 
         />
 

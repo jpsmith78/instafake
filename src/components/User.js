@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timestamp from 'react-timestamp';
 import UserUpdateForm from './UserUpdateForm';
 import Button from 'react-bootstrap/Button'
+import Pluralize from 'react-pluralize'
 
 export default class User extends Component {
   render(){
@@ -13,6 +14,7 @@ export default class User extends Component {
         <h4>{this.props.user.email}</h4>
         <small>Created on <Timestamp date={this.props.user.created_at}/></small><br/>
         <small>Updated <Timestamp relative  date={this.props.user.updated_at}/></small>
+        <h4><Pluralize singular={'photo'} count={this.props.user.photos.length}/></h4>
         {this.props.user.photos.map((photo, index)=>{
           return(
             <div
@@ -24,7 +26,6 @@ export default class User extends Component {
         })}
         {this.props.user.id === this.props.currentUser.id ?
           <div>
-            <p>Cannot destroy own account</p>
             <UserUpdateForm
               user={this.props.user}
               arrayIndex={this.props.arrayIndex}

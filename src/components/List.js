@@ -29,10 +29,10 @@ export default class List extends Component {
         <div>
           <h2>Photos</h2>
           <div>
-
             {this.props.photos.map((photo, index)=>{
               return (
                 <Photo
+                  handleCreateLike={this.props.handleCreateLike}
                   key={index}
                   photo={photo}
                   arrayIndex={index}
@@ -40,7 +40,8 @@ export default class List extends Component {
                   handlePhotoUpdate={this.props.handlePhotoUpdate}
                   currentArray='photos'
                   currentUser={this.props.currentUser}
-
+                  fetchPhotos={this.props.fetchPhotos}
+                  handleLikeCreate={this.props.handleLikeCreate}
                 />
               )
             })}
