@@ -319,6 +319,26 @@ export default class App extends Component {
   }
 
 
+  // ======================================
+  // <<<<<<<<< HANDLE LIKE CREATE>>>>>>>>
+  // =======================================
+  handleLikeCreate = (data) => {
+    if(data.warning){
+      this.setState({
+        message: [data.warning]
+      })
+    }
+    else if(data.errors){
+      this.setState({
+        message: [data.errors]
+      })
+    }
+    else {
+      this.setState({
+        message: ["you like this"]
+      })
+    }
+  }
 
 
   // ======================================
@@ -330,18 +350,6 @@ export default class App extends Component {
     this.checkLoginStatus();
   }
 
-  handleLikeCreate = (data) => {
-    if(!data.errors){
-      this.setState({
-        message: ["photo successfully liked"]
-      })
-    }
-    else {
-      this.setState({
-        message: data.errors
-      })
-    }
-  }
 
 
   // ======================================

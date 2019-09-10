@@ -17,6 +17,7 @@ export default class Photo extends Component {
     {withCredentials: true}
     ).then(response => {
       console.log(response.data)
+      this.props.handleLikeCreate(response.data)
     })
     console.log(this.props.photo)
     console.log(this.props.currentUser)

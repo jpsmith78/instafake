@@ -8,8 +8,8 @@ export default class User extends Component {
   render(){
     return(
       <div>
-
         <h3>{this.props.user.username}</h3>
+        <h4>{this.props.user.username} has liked <Pluralize singular={'photo'} count={this.props.user.likes.length} /></h4>
         <img src={this.props.user.image} alt="broken" width="200px"/>
         <h4>{this.props.user.email}</h4>
         <small>Created on <Timestamp date={this.props.user.created_at}/></small><br/>
@@ -21,6 +21,9 @@ export default class User extends Component {
               key={index}
               photo={photo}>
                 <div>{photo.title}</div>
+                <img src={photo.picture} alt={photo.title} width="200px"/>
+                <div><Pluralize singular={'like'} count={photo.likes.length} /></div>
+
             </div>
           )
         })}
@@ -44,6 +47,7 @@ export default class User extends Component {
 
           </div>
         : "" }
+        <hr></hr>
       </div>
     )
   }
