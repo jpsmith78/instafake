@@ -335,11 +335,28 @@ export default class App extends Component {
     }
     else {
       this.setState({
-        message: ["you like this"]
+        message: ["you have liked this"]
       })
     }
   }
 
+
+  // ======================================
+  // <<<<<<<<< HANDLE LIKE DELETE>>>>>>>>
+  // =======================================
+  handleLikeDelete = (id, arrayIndex, likesArray) => {
+    axios.delete('http://localhost:3000/likes/' + id)
+    .then(response => {
+      console.log(response.data);
+      this.setState({
+        message: ["You have unliked this"]
+      })
+      this.fetchPhotos()
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
@@ -380,6 +397,7 @@ export default class App extends Component {
           handleLogoutClick={this.handleLogoutClick}
           handleUserUpdate={this.handleUserUpdate}
           handleLikeCreate={this.handleLikeCreate}
+          handleLikeDelete={this.handleLikeDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
