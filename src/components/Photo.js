@@ -10,9 +10,42 @@ export default class Photo extends Component {
     super(props)
 
     this.state = {
+      body: "",
       likeButtonView: "show"
     }
   }
+
+
+// ===============================
+// <<<<<<<<HANDLE CHANGE>>>>>>>>>
+// ===============================
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleCommentSubmit = (event) => {
+    const { body } = this.state
+
+    axios.post('http://localhost:3000/comments', {
+      comment: {
+        body: body,
+        user_id: this.props.currentUser.id,
+        photo_id: this.props.photo.id
+      }
+    },
+      { withCredentials: true }
+    ).then(response => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    event.preventDefault()
+
+  }
+
 
 
   handleLikeSubmit = (event) => {
@@ -22,7 +55,7 @@ export default class Photo extends Component {
         photo_id: this.props.photo.id
       }
     },
-    {withCredentials: true}
+      { withCredentials: true }
     ).then(response => {
       console.log(response.data)
       this.props.handleLikeCreate(response.data)
@@ -95,6 +128,18 @@ export default class Photo extends Component {
             </div>
           }
 
+          <form onSubmit={this.handleCommentSubmit}>
+            <input
+              type="text"
+              name="body"
+              placeholder="comment"
+              value={this.state.body}
+              onChange={this.handleChange}
+              required
+            />
+            <button type="submit">add comment</button>
+
+          </form>
 
 
           <h3>{this.props.photo.title}</h3>
