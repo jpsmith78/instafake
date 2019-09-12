@@ -36,14 +36,16 @@ export default class List extends Component {
                   key={index}
                   photo={photo}
                   arrayIndex={index}
-                  handlePhotoDelete={this.props.handlePhotoDelete}
-                  handlePhotoUpdate={this.props.handlePhotoUpdate}
-                  handleLikeDelete={this.props.handleLikeDelete}
                   currentArray='photos'
                   likesArray='likes'
+                  commentsArray='comments'
+                  handlePhotoDelete={this.props.handlePhotoDelete}
+                  handlePhotoUpdate={this.props.handlePhotoUpdate}
                   currentUser={this.props.currentUser}
                   fetchPhotos={this.props.fetchPhotos}
                   handleLikeCreate={this.props.handleLikeCreate}
+                  handleLikeDelete={this.props.handleLikeDelete}
+                  handleCommentDelete={this.props.handleCommentDelete}
                 />
               )
             })}

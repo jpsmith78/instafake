@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Pluralize from 'react-pluralize'
 import axios from 'axios'
 
+
 export default class Photo extends Component {
   constructor(props){
     super(props)
@@ -25,6 +26,10 @@ export default class Photo extends Component {
     })
   }
 
+
+  // ===============================
+  // <<<<HANDLE COMMENT SUBMIT>>>>>>
+  // ===============================
   handleCommentSubmit = (event) => {
     const { body } = this.state
 
@@ -47,7 +52,9 @@ export default class Photo extends Component {
   }
 
 
-
+  // ===============================
+  // <<<<<<HANDLE LIKE SUBMIT>>>>>>
+  // ===============================
   handleLikeSubmit = (event) => {
     axios.post('http://localhost:3000/likes', {
       like: {
@@ -72,6 +79,10 @@ export default class Photo extends Component {
 
   }
 
+
+  // ===============================
+  // <<<<<HANDLE VIEW>>>>>>>>>
+  // ===============================
   handleLikeButtonView = (view) => {
     this.setState({
       likeButtonView: view
@@ -79,13 +90,18 @@ export default class Photo extends Component {
   }
 
 
+
+  // ===============================
+  // <<<<<<<<<< RENDER >>>>>>>>>
+  // ===============================
   render(){
     return(
       <div>
-
           <h5><Pluralize singular={'like'} count={this.props.photo.likes.length}/></h5>
 
           {
+            //SHOW LIKE BUTTON
+
             this.props.photo.user_id !== this.props.currentUser.id ?
             <div>
               {this.state.likeButtonView === "show" ?
@@ -95,6 +111,7 @@ export default class Photo extends Component {
                   >like</Button>
                 </div>
                 :
+                //SHOW UNLIKE BUTTON
                 <div>
                   <div>
                     {this.props.photo.likes.map((like, index)=>{
@@ -122,14 +139,16 @@ export default class Photo extends Component {
             </div>
           :
             <div>
-
               <h3>No self likes, bro</h3>
-
             </div>
+            //END LIKE/UNLIKE BUTTONS
           }
 
+          {
+            //COMMENTS FORM
+          }
           <form onSubmit={this.handleCommentSubmit}>
-            <input
+            <textarea
               type="text"
               name="body"
               placeholder="comment"
@@ -137,11 +156,12 @@ export default class Photo extends Component {
               onChange={this.handleChange}
               required
             />
-            <button type="submit">add comment</button>
+            <Button type="submit">add comment</Button>
 
           </form>
-
-
+          {
+            // PHOTO PROPERTIES
+          }
           <h3>{this.props.photo.title}</h3>
           <img src={this.props.photo.picture} alt={this.props.photo.title} width="200px"/>
           <h5>Description: {this.props.photo.description}</h5>
@@ -150,10 +170,15 @@ export default class Photo extends Component {
           <h4>Created by: {this.props.photo.user.username}</h4>
 
 
-          { this.props.photo.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
+          {
+            //PHOTO DELETE BUTTON
+            this.props.photo.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
             <div>
               <Button onClick={() => {
               this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
+              {
+                //PHOTO UPDATE BUTTON
+              }
               <PhotoUpdateForm
                   photo={this.props.photo}
                   arrayIndex={this.props.arrayIndex}
@@ -162,7 +187,30 @@ export default class Photo extends Component {
             </div>
 
             : ""
-       }
+          }
+
+          {
+            //PHOTO COMMENTS
+            this.props.photo.comments.map((comment, index)=>{
+            return(
+              <div
+                key={index}
+                comment={comment}>
+                  <div>{comment.user.username} says:</div>
+                  <div>{comment.body}</div>
+                    {
+                      //COMMENT DELETE BUTTON
+                      comment.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
+                      <div>
+                        <Button onClick={() => {
+                        this.props.handleCommentDelete(comment.id, this.props.arrayIndex, this.props.commentArray)}}>Remove Comment</Button>
+                      </div>
+
+                      : ""
+                    }
+              </div>
+            )
+          })}
         <hr></hr>
       </div>
 

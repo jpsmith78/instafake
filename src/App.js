@@ -255,6 +255,7 @@ export default class App extends Component {
   }
 
 
+
 // ======================================
 // <<<<<<<<< LOGIN FUNCTIONS >>>>>>>>
 // =======================================
@@ -319,6 +320,10 @@ export default class App extends Component {
   }
 
 
+
+  // ======================================
+  // <<<<<<<<< LIKE FUNCTIONS>>>>>>>>
+  // =======================================
   // ======================================
   // <<<<<<<<< HANDLE LIKE CREATE>>>>>>>>
   // =======================================
@@ -350,6 +355,27 @@ export default class App extends Component {
       console.log(response.data);
       this.setState({
         message: ["You have unliked this"]
+      })
+      this.fetchPhotos()
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+
+  // ======================================
+  // <<<<<<<<< COMMENT FUNCTIONS>>>>>>>>
+  // =======================================
+  // ======================================
+  // <<<<<<<<< HANDLE COMMENT DELETE>>>>>>>>
+  // =======================================
+  handleCommentDelete = (id, arrayIndex, commentsArray) => {
+    axios.delete('http://localhost:3000/comments/' + id)
+    .then(response => {
+      console.log(response.data);
+      this.setState({
+        message: ["Comment has been removed"]
       })
       this.fetchPhotos()
     })
@@ -398,6 +424,7 @@ export default class App extends Component {
           handleUserUpdate={this.handleUserUpdate}
           handleLikeCreate={this.handleLikeCreate}
           handleLikeDelete={this.handleLikeDelete}
+          handleCommentDelete={this.handleCommentDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
