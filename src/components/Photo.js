@@ -43,6 +43,10 @@ export default class Photo extends Component {
       { withCredentials: true }
     ).then(response => {
       console.log(response.data)
+      this.props.handleCommentCreate(response.data)
+      this.props.fetchPhotos()
+      this.clearCommentForm()
+
     })
     .catch((error) => {
       console.log(error);
@@ -51,6 +55,15 @@ export default class Photo extends Component {
 
   }
 
+
+  // ===============================
+  // <<<<CLEAR COMMENT FORM>>>>>>
+  // ===============================
+  clearCommentForm = () => {
+    this.setState({
+      body: ""
+    })
+  }
 
   // ===============================
   // <<<<<<HANDLE LIKE SUBMIT>>>>>>

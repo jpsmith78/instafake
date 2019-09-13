@@ -368,6 +368,25 @@ export default class App extends Component {
   // <<<<<<<<< COMMENT FUNCTIONS>>>>>>>>
   // =======================================
   // ======================================
+  // <<<<<<<<< HANDLE COMMENT CREATE>>>>>>>>
+  // =======================================
+  handleCommentCreate = (data) => {
+    if (!data.errors) {
+      this.setState({
+        message: ["comment created"]
+      })
+      console.log(this.state.message);
+    }else {
+      this.setState({
+        message: data.errors
+      })
+      console.log(this.state.message);
+    }
+  }
+
+
+
+  // ======================================
   // <<<<<<<<< HANDLE COMMENT DELETE>>>>>>>>
   // =======================================
   handleCommentDelete = (id, arrayIndex, commentsArray) => {
@@ -424,6 +443,7 @@ export default class App extends Component {
           handleUserUpdate={this.handleUserUpdate}
           handleLikeCreate={this.handleLikeCreate}
           handleLikeDelete={this.handleLikeDelete}
+          handleCommentCreate={this.handleCommentCreate}
           handleCommentDelete={this.handleCommentDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}

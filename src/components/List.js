@@ -45,6 +45,7 @@ export default class List extends Component {
                   fetchPhotos={this.props.fetchPhotos}
                   handleLikeCreate={this.props.handleLikeCreate}
                   handleLikeDelete={this.props.handleLikeDelete}
+                  handleCommentCreate={this.props.handleCommentCreate}
                   handleCommentDelete={this.props.handleCommentDelete}
                 />
               )
