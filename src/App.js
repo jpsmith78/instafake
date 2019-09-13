@@ -248,7 +248,6 @@ export default class App extends Component {
       }
       this.fetchUsers()
     })
-
     .catch(error => {
       console.log(error);
     })
@@ -385,6 +384,45 @@ export default class App extends Component {
   }
 
 
+  // ======================================
+  // <<<<<<<HANDLE COMMENT UPDATE >>>>>>>>
+  // =======================================
+  handleCommentUpdate = (comment, arrayIndex, commentsArray) => {
+
+    fetch('http://localhost:3000/comments/' + comment.id, {
+      body: JSON.stringify(comment),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(response => {
+      console.log(response);
+      if(response.errors){
+        this.setState({
+          message: response.errors
+        })
+      }
+      else {
+        this.setState({
+          message: ["comment updated successfully"]
+        })
+      }
+    })
+    .then(response =>{
+      this.fetchPhotos()
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+
 
   // ======================================
   // <<<<<<<<< HANDLE COMMENT DELETE>>>>>>>>
@@ -444,6 +482,7 @@ export default class App extends Component {
           handleLikeCreate={this.handleLikeCreate}
           handleLikeDelete={this.handleLikeDelete}
           handleCommentCreate={this.handleCommentCreate}
+          handleCommentUpdate={this.handleCommentUpdate}
           handleCommentDelete={this.handleCommentDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}

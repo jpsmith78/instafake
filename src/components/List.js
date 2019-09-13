@@ -32,20 +32,22 @@ export default class List extends Component {
             {this.props.photos.map((photo, index)=>{
               return (
                 <Photo
-                  handleCreateLike={this.props.handleCreateLike}
+
                   key={index}
                   photo={photo}
                   arrayIndex={index}
                   currentArray='photos'
                   likesArray='likes'
                   commentsArray='comments'
-                  handlePhotoDelete={this.props.handlePhotoDelete}
-                  handlePhotoUpdate={this.props.handlePhotoUpdate}
                   currentUser={this.props.currentUser}
                   fetchPhotos={this.props.fetchPhotos}
+                  handleCreateLike={this.props.handleCreateLike}
+                  handlePhotoDelete={this.props.handlePhotoDelete}
+                  handlePhotoUpdate={this.props.handlePhotoUpdate}
                   handleLikeCreate={this.props.handleLikeCreate}
                   handleLikeDelete={this.props.handleLikeDelete}
                   handleCommentCreate={this.props.handleCommentCreate}
+                  handleCommentUpdate={this.props.handleCommentUpdate}
                   handleCommentDelete={this.props.handleCommentDelete}
                 />
               )
