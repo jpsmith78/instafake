@@ -15,10 +15,10 @@ export default class Photo extends Component {
     super(props)
 
     this.state = {
-      body: "",
-      likeButtonView: "show",
-      commentFormView: "hide",
-      likeUserView: "hide"
+      body: '',
+      likeUserView: 'hide',
+      likeButtonView: 'show',
+      commentFormView: 'hide'
     }
   }
 
@@ -51,9 +51,8 @@ export default class Photo extends Component {
       console.log(response.data)
       this.props.handleCommentCreate(response.data)
       this.props.handleFetchUrl('photos')
+      this.handleArrayView('commentFormView', 'hide')
       this.clearCommentForm()
-      this.handleCommentView('hide')
-
     })
     .catch((error) => {
       console.log(error);
@@ -87,41 +86,22 @@ export default class Photo extends Component {
       console.log(response.data)
       this.props.handleLikeCreate(response.data)
       this.props.handleFetchUrl('photos')
-      this.handleLikeButtonView('hide')
+      this.handleArrayView('likeButtonView', 'hide')
     })
-    console.log(this.state.likeButtonView);
+    console.log(this.props.likeButtonView);
     console.log(this.props.photo)
     console.log(this.props.currentUser)
-
     event.preventDefault()
-
   }
 
 
-  // ===============================
-  // <<<<<HANDLE LIKE VIEW>>>>>>>>>
-  // ===============================
-  handleLikeButtonView = (view) => {
-    this.setState({
-      likeButtonView: view
-    })
-  }
-
-  // ===============================
-  // <<<<<HANDLE COMMENT VIEW>>>>>>>>>
-  // ===============================
-  handleCommentView = ( view) => {
-    this.setState({
-      commentFormView: view
-    })
-  }
 
   // ===============================
   // <<<<<HANDLE LIKE USER VIEW>>>>>>>>>
   // ===============================
-  handleLikeUserView = (view) => {
+  handleArrayView = (target, view) => {
     this.setState({
-      likeUserView: view
+      [target]: view
     })
   }
   // ===============================
@@ -131,7 +111,7 @@ export default class Photo extends Component {
     return(
       <div>
           <h5 onClick={() => {
-            this.handleLikeUserView('show')
+            this.handleArrayView('likeUserView','show')
           }}><Pluralize singular={'like'} count={this.props.photo.likes.length}/></h5>
         { this.state.likeUserView === "show" ?
           <div>
@@ -139,7 +119,7 @@ export default class Photo extends Component {
               <Modal.Dialog>
                 <Modal.Header>
                   <Container>
-                    <h3>Users Who Like This</h3>
+                    <h3>Users Who Like {this.props.photo.title}</h3>
                   </Container>
                 </Modal.Header>
                 <Modal.Body>
@@ -159,7 +139,7 @@ export default class Photo extends Component {
                 <Modal.Footer>
                   <Container>
                     <Button onClick={() => {
-                        this.handleLikeUserView("hide")
+                        this.handleArrayView('likeUserView','hide')
                     }}>Close</Button>
                   </Container>
                 </Modal.Footer>
@@ -195,8 +175,8 @@ export default class Photo extends Component {
                           like={like} >
                             {like.user_id === this.props.currentUser.id ?
                               <Button onClick={() => {
-                                  this.props.handleLikeDelete(like.id, index, this.props.likesArray)
-                                  this.handleLikeButtonView('show')
+                                  this.props.handleDelete('likes/' + like.id, index, 'likes')
+                                  this.handleArrayView('likeButtonView', 'show')
                               }}>Unlike</Button>
                             :
                               <div></div>
@@ -220,7 +200,7 @@ export default class Photo extends Component {
             //COMMENT FORM
             this.state.commentFormView === "hide" ?
             <Button onClick={() => {
-              this.handleCommentView('commentFormView', 'show')
+              this.handleArrayView('commentFormView', 'show')
             }}>Add Comment</Button>
 
           :
@@ -256,7 +236,7 @@ export default class Photo extends Component {
                   <Modal.Footer>
                     <Container>
                       <Button onClick={() => {
-                        this.handleCommentView('commentFormView','hide')
+                        this.handleArrayView('commentFormView', 'hide')
                       }}>Close</Button>
                     </Container>
                   </Modal.Footer>

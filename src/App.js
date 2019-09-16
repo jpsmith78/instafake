@@ -85,7 +85,7 @@ export default class App extends Component {
   handlePhotoCreate = (data) => {
     if (!data.errors) {
       this.setState({
-        message: ["photo created"]
+        message: [data.create]
       })
       console.log(this.state.message);
     }else {
@@ -106,7 +106,7 @@ export default class App extends Component {
       this.handleFetchUrl('photos')
       this.handleFetchUrl('users')
       this.setState({
-        message: [response.data.success]
+        message: [response.data.delete]
       })
     })
     .catch(error => {
@@ -183,24 +183,6 @@ export default class App extends Component {
     }
   }
 
-// ======================================
-// <<<<<<<<HANDLE USER DELETE>>>>>>>>
-// =======================================
-  handleUserDelete = (id, arrayIndex, currentArray) => {
-    axios.delete('http://localhost:3000/users/' + id)
-    .then(response => {
-      console.log(response.data);
-      this.setState({
-        message: ["user successfully deleted"]
-      })
-      this.removeFromArray(currentArray, arrayIndex)
-
-
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
 
   // ======================================
   // <<<<<<<<HANDLE USER UPDATE>>>>>>>>
@@ -331,22 +313,6 @@ export default class App extends Component {
   }
 
 
-  // ======================================
-  // <<<<<<<<< HANDLE LIKE DELETE>>>>>>>>
-  // =======================================
-  handleLikeDelete = (id, arrayIndex, likesArray) => {
-    axios.delete('http://localhost:3000/likes/' + id)
-    .then(response => {
-      console.log(response.data);
-      this.setState({
-        message: ["You have unliked this"]
-      })
-      this.handleFetchUrl('photos')
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
 
 
   // ======================================
@@ -446,19 +412,19 @@ export default class App extends Component {
           currentView={this.state.currentView}
           photos={this.state.photos}
           users={this.state.users}
-          handleFetchUrl={this.handleFetchUrl}
-          handleDelete={this.handleDelete}
-          handlePhotoUpdate={this.handlePhotoUpdate}
-          handleUserDelete={this.handleUserDelete}
-          handleLogoutClick={this.handleLogoutClick}
-          handleUserUpdate={this.handleUserUpdate}
-          handleLikeCreate={this.handleLikeCreate}
-          handleLikeDelete={this.handleLikeDelete}
-          handleCommentCreate={this.handleCommentCreate}
-          handleCommentUpdate={this.handleCommentUpdate}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
+          handleView={this.handleView}
+          handleFetchUrl={this.handleFetchUrl}
+          handleDelete={this.handleDelete}
+          handlePhotoUpdate={this.handlePhotoUpdate}
+          handleLogoutClick={this.handleLogoutClick}
+          handleUserUpdate={this.handleUserUpdate}
+          handleLikeCreate={this.handleLikeCreate}
+          handleCommentCreate={this.handleCommentCreate}
+          handleCommentUpdate={this.handleCommentUpdate}
+
         />
 
       </div>
