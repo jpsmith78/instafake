@@ -36,19 +36,16 @@ export default class List extends Component {
                   key={index}
                   photo={photo}
                   arrayIndex={index}
-                  currentArray='photos'
                   likesArray='likes'
-                  commentsArray='comments'
                   currentUser={this.props.currentUser}
-                  fetchPhotos={this.props.fetchPhotos}
+                  handleFetchUrl={this.props.handleFetchUrl}
                   handleCreateLike={this.props.handleCreateLike}
-                  handlePhotoDelete={this.props.handlePhotoDelete}
+                  handleDelete={this.props.handleDelete}
                   handlePhotoUpdate={this.props.handlePhotoUpdate}
                   handleLikeCreate={this.props.handleLikeCreate}
                   handleLikeDelete={this.props.handleLikeDelete}
                   handleCommentCreate={this.props.handleCommentCreate}
                   handleCommentUpdate={this.props.handleCommentUpdate}
-                  handleCommentDelete={this.props.handleCommentDelete}
                 />
               )
             })}
@@ -64,9 +61,8 @@ export default class List extends Component {
                     key={index}
                     user={user}
                     arrayIndex={index}
-                    handleUserDelete={this.props.handleUserDelete}
+                    handleDelete={this.props.handleDelete}
                     handleUserUpdate={this.props.handleUserUpdate}
-                    currentArray='users'
                     currentUser={this.props.currentUser}
                   />
                 )

@@ -32,14 +32,14 @@ export default class Header extends Component {
           <Row className="justify-content-end">
             <Col>
               <Button onClick={() => {
-                this.props.handleView('users')
-                this.props.fetchUsers()
+                this.props.handleView('currentView', 'users')
+                this.props.handleFetchUrl('users')
               }}>Users</Button>
             </Col>
             <Col>
               <Button onClick={() => {
-                this.props.handleView('photos')
-                this.props.fetchPhotos()
+                this.props.handleView('currentView', 'photos')
+                this.props.handleFetchUrl('photos')
               }}>Photos</Button>
             </Col>
             <Col></Col>
@@ -61,16 +61,17 @@ export default class Header extends Component {
               {this.props.currentUser.id ?
 
                 <PhotoCreateForm
-                  fetchPhotos={this.props.fetchPhotos}
-                  fetchUsers={this.props.fetchUsers}
+                  handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
                   handlePhotoCreate={this.props.handlePhotoCreate}
+                  photoFormView={this.props.photoFormView}
                 />
               :
                 <UserCreateForm
-                  fetchUsers={this.props.fetchUsers}
+                  handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
                   handleUserCreate={this.props.handleUserCreate}
+                  userFormView={this.props.userFormView}
                 />
               }
             </Col>

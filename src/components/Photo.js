@@ -50,7 +50,7 @@ export default class Photo extends Component {
     ).then(response => {
       console.log(response.data)
       this.props.handleCommentCreate(response.data)
-      this.props.fetchPhotos()
+      this.props.handleFetchUrl('photos')
       this.clearCommentForm()
       this.handleCommentView('hide')
 
@@ -86,7 +86,7 @@ export default class Photo extends Component {
     ).then(response => {
       console.log(response.data)
       this.props.handleLikeCreate(response.data)
-      this.props.fetchPhotos()
+      this.props.handleFetchUrl('photos')
       this.handleLikeButtonView('hide')
     })
     console.log(this.state.likeButtonView);
@@ -110,7 +110,7 @@ export default class Photo extends Component {
   // ===============================
   // <<<<<HANDLE COMMENT VIEW>>>>>>>>>
   // ===============================
-  handleCommentView = (view) => {
+  handleCommentView = ( view) => {
     this.setState({
       commentFormView: view
     })
@@ -220,7 +220,7 @@ export default class Photo extends Component {
             //COMMENT FORM
             this.state.commentFormView === "hide" ?
             <Button onClick={() => {
-              this.handleCommentView('show')
+              this.handleCommentView('commentFormView', 'show')
             }}>Add Comment</Button>
 
           :
@@ -256,7 +256,7 @@ export default class Photo extends Component {
                   <Modal.Footer>
                     <Container>
                       <Button onClick={() => {
-                        this.handleCommentView('hide')
+                        this.handleCommentView('commentFormView','hide')
                       }}>Close</Button>
                     </Container>
                   </Modal.Footer>
@@ -283,7 +283,7 @@ export default class Photo extends Component {
             this.props.photo.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
             <div>
               <Button onClick={() => {
-              this.props.handlePhotoDelete(this.props.photo.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
+              this.props.handleDelete('photos/' + this.props.photo.id, this.props.arrayIndex, 'photos')}}>Delete</Button>
               {
                 //PHOTO UPDATE BUTTON
               }
@@ -311,7 +311,7 @@ export default class Photo extends Component {
                       comment.user_id === this.props.currentUser.id || this.props.currentUser.admin ?
                       <div>
                         <Button onClick={() => {
-                        this.props.handleCommentDelete(comment.id, this.props.arrayIndex, this.props.commentsArray)}}>Remove Comment</Button>
+                        this.props.handleDelete('comments/' + comment.id, this.props.arrayIndex, 'comments')}}>Remove Comment</Button>
 
                         <CommentUpdateForm
                           comment={comment}

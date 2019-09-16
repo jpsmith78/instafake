@@ -11,6 +11,8 @@ export default class App extends Component {
 
     this.state = {
       currentView: 'users',
+      photoFormView: 'hide',
+      userFormView: 'hide',
       users: [],
       photos: [],
       loggedInStatus: "NOT LOGGED IN",
@@ -23,12 +25,11 @@ export default class App extends Component {
   // ======================================
   // <<<<<<<<<<HANDLE VIEW FUNCTION >>>>>>>>
   // =======================================
-  handleView = (view) => {
+  handleView = (target, view) => {
     this.setState({
-      currentView: view
+      [target]: view
     })
   }
-
 
 
   // ======================================
@@ -43,12 +44,16 @@ export default class App extends Component {
   // <<<<<<<<< PHOTOS FUNCTIONS >>>>>>>>
   // =======================================
   // ======================================
-  // <<<<<<<<< FETCH PHOTOS >>>>>>>>
+  // <<<<<<HANDLE FETCH URL>>>>>>>
   // =======================================
-  fetchPhotos = () => {
-    axios.get('http://localhost:3000/photos')
+  handleFetchUrl = (route) => {
+    axios.get('http://localhost:3000/' + route)
       .then(response => {
-        this.setPhotos(response.data)
+        if(route === 'photos'){
+          this.setPhotos(response.data)
+        }else if (route === 'users'){
+          this.setUsers(response.data)
+        }
         console.log(response.data)
       })
       .catch((error) => {
@@ -64,6 +69,16 @@ export default class App extends Component {
       photos: photo
     })
   }
+
+  // ======================================
+  // <<<<<<SET USERS>>>>>>>>
+  // =======================================
+  setUsers = (user) => {
+    this.setState({
+      users: user
+    })
+  }
+
   // ======================================
   // <<<<<<<HANDLE PHOTO CREATE >>>>>>>>
   // =======================================
@@ -80,22 +95,25 @@ export default class App extends Component {
       console.log(this.state.message);
     }
   }
+
   // ======================================
-  // <<<<<<<HANDLE PHOTO DELETE >>>>>>>>
+  // <<<<<<<HANDLE DELETE FUNCTION>>>>>>>>
   // =======================================
-  handlePhotoDelete = (id, arrayIndex, currentArray) => {
-    axios.delete('http://localhost:3000/photos/' + id)
+  handleDelete = (id, arrayIndex, currentArray) => {
+    axios.delete('http://localhost:3000/' + id)
     .then(response => {
       console.log(response.data)
+      this.handleFetchUrl('photos')
+      this.handleFetchUrl('users')
       this.setState({
-        message: ["photo successfully deleted"]
+        message: [response.data.success]
       })
-      this.removeFromArray(currentArray, arrayIndex)
     })
     .catch(error => {
       console.log(error);
     })
   }
+
 
   // ======================================
   // <<<<<<<HANDLE PHOTO UPDATE >>>>>>>>
@@ -127,7 +145,7 @@ export default class App extends Component {
       }
     })
     .then(response =>{
-      this.fetchPhotos()
+      this.handleFetchUrl('photos')
     })
     .catch(error => {
       console.log(error);
@@ -135,49 +153,17 @@ export default class App extends Component {
   }
 
 
-// ======================================
-// <<<<<<<<< FOR PHOTOS AND USERS >>>>>>>>
-// =======================================
-// ======================================
-// <<<<<<REMOVE FROM ARRAY>>>>>>>>
-// =======================================
-  removeFromArray = (array, arrayIndex) => {
-    this.setState((prevState) => {
-      prevState[array].splice(arrayIndex, 1)
-      return {
-        [array]: prevState[array]
-      }
-    })
-  }
+
+
 
 
 
 // ======================================
 // <<<<<<<<< USERS FUNCTIONS >>>>>>>>
 // =======================================
-// ======================================
-// <<<<<<<<< FETCH USERS >>>>>>>>
-// =======================================
-  fetchUsers = () => {
-    axios.get('http://localhost:3000/users')
-      .then(response => {
-        this.setUsers(response.data)
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
 
 
-  // ======================================
-  // <<<<<<SET USERS>>>>>>>>
-  // =======================================
-  setUsers = (user) => {
-    this.setState({
-      users: user
-    })
-  }
+
 
 
 // ======================================
@@ -246,7 +232,7 @@ export default class App extends Component {
           currentUser: response
         })
       }
-      this.fetchUsers()
+      this.handleFetchUrl('users')
     })
     .catch(error => {
       console.log(error);
@@ -355,7 +341,7 @@ export default class App extends Component {
       this.setState({
         message: ["You have unliked this"]
       })
-      this.fetchPhotos()
+      this.handleFetchUrl('photos')
     })
     .catch(error => {
       console.log(error);
@@ -415,7 +401,7 @@ export default class App extends Component {
       }
     })
     .then(response =>{
-      this.fetchPhotos()
+      this.handleFetchUrl('photos')
     })
     .catch(error => {
       console.log(error);
@@ -424,29 +410,14 @@ export default class App extends Component {
 
 
 
-  // ======================================
-  // <<<<<<<<< HANDLE COMMENT DELETE>>>>>>>>
-  // =======================================
-  handleCommentDelete = (id, arrayIndex, commentsArray) => {
-    axios.delete('http://localhost:3000/comments/' + id)
-    .then(response => {
-      console.log(response.data);
-      this.setState({
-        message: ["Comment has been removed"]
-      })
-      this.fetchPhotos()
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
+
 
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
   // =======================================
   componentDidMount(){
-    this.fetchPhotos();
-    this.fetchUsers();
+    this.handleFetchUrl('photos');
+    this.handleFetchUrl('users');
     this.checkLoginStatus();
   }
 
@@ -460,13 +431,14 @@ export default class App extends Component {
       <div>
         <Header
           handleView={this.handleView}
+          photoFormView={this.state.photoFormView}
+          userFormView={this.state.userFormView}
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           handleLogoutClick={this.handleLogoutClick}
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
-          fetchPhotos={this.fetchPhotos}
-          fetchUsers={this.fetchUsers}
+          handleFetchUrl={this.handleFetchUrl}
           handlePhotoCreate={this.handlePhotoCreate}
           handleUserCreate={this.handleUserCreate}
         />
@@ -474,7 +446,8 @@ export default class App extends Component {
           currentView={this.state.currentView}
           photos={this.state.photos}
           users={this.state.users}
-          handlePhotoDelete={this.handlePhotoDelete}
+          handleFetchUrl={this.handleFetchUrl}
+          handleDelete={this.handleDelete}
           handlePhotoUpdate={this.handlePhotoUpdate}
           handleUserDelete={this.handleUserDelete}
           handleLogoutClick={this.handleLogoutClick}
@@ -483,12 +456,9 @@ export default class App extends Component {
           handleLikeDelete={this.handleLikeDelete}
           handleCommentCreate={this.handleCommentCreate}
           handleCommentUpdate={this.handleCommentUpdate}
-          handleCommentDelete={this.handleCommentDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
-          fetchPhotos={this.fetchPhotos}
-
         />
 
       </div>

@@ -15,7 +15,6 @@ export default class UserCreateForm extends Component {
       email: "",
       password: "",
       image: "",
-      userFormView: "hide"
     }
   }
 
@@ -56,11 +55,11 @@ export default class UserCreateForm extends Component {
     )
     .then(response => {
       console.log(response.data)
-      this.props.fetchUsers()
-      this.props.handleView('users')
+      this.props.handleFetchUrl('users')
+      this.props.handleView('userFormView', 'users')
+      this.props.handleView('userFormView', 'hide')
       this.clearUserForm()
       this.props.handleUserCreate(response.data)
-      this.handleUserCreateView("hide")
     })
     .catch(error => {
       console.log(error)
@@ -92,11 +91,9 @@ export default class UserCreateForm extends Component {
   render(){
     return(
       <div>
-        {this.state.userFormView === "hide" ?
+        {this.props.userFormView === "hide" ?
           <Button onClick={() => {
-            this.setState({
-              userFormView: "show"
-            })
+            this.props.handleView('userFormView', 'show')
           }}>Sign Up</Button>
         :
         <div>
@@ -157,9 +154,7 @@ export default class UserCreateForm extends Component {
               <Modal.Footer>
                 <Container>
                 <Button onClick={() => {
-                  this.setState({
-                    userFormView: "hide"
-                  })
+                  this.props.handleView('userFormView', 'show')
                 }}>Close</Button>
                 </Container>
               </Modal.Footer>
