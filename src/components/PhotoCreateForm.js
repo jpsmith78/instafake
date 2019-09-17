@@ -54,7 +54,7 @@ export default class PhotoCreateForm extends Component {
       this.props.handleView('currentView', 'photos')
       this.props.handleView('photoFormView', 'hide')
       this.clearPhotoForm()
-      this.props.handlePhotoCreate(response.data)
+      this.props.handleCreate(response.data)
     })
     .catch(error => {
       console.log(error)

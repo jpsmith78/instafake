@@ -32,7 +32,6 @@ export default class List extends Component {
             {this.props.photos.map((photo, index)=>{
               return (
                 <Photo
-
                   key={index}
                   photo={photo}
                   arrayIndex={index}
@@ -41,8 +40,7 @@ export default class List extends Component {
                   handleFetchUrl={this.props.handleFetchUrl}
                   handleDelete={this.props.handleDelete}
                   handlePhotoUpdate={this.props.handlePhotoUpdate}
-                  handleLikeCreate={this.props.handleLikeCreate}
-                  handleCommentCreate={this.props.handleCommentCreate}
+                  handleCreate={this.props.handleCreate}
                   handleCommentUpdate={this.props.handleCommentUpdate}
                 />
               )

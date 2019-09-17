@@ -56,10 +56,10 @@ export default class UserCreateForm extends Component {
     .then(response => {
       console.log(response.data)
       this.props.handleFetchUrl('users')
-      this.props.handleView('userFormView', 'users')
+      this.props.handleView('currentView', 'users')
       this.props.handleView('userFormView', 'hide')
       this.clearUserForm()
-      this.props.handleUserCreate(response.data)
+      this.props.handleCreate(response.data)
     })
     .catch(error => {
       console.log(error)

@@ -63,14 +63,14 @@ export default class Header extends Component {
                 <PhotoCreateForm
                   handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
-                  handlePhotoCreate={this.props.handlePhotoCreate}
+                  handleCreate={this.props.handleCreate}
                   photoFormView={this.props.photoFormView}
                 />
               :
                 <UserCreateForm
                   handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
-                  handleUserCreate={this.props.handleUserCreate}
+                  handleCreate={this.props.handleCreate}
                   userFormView={this.props.userFormView}
                 />
               }

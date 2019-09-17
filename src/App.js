@@ -80,19 +80,17 @@ export default class App extends Component {
   }
 
   // ======================================
-  // <<<<<<<HANDLE PHOTO CREATE >>>>>>>>
+  // <<<<<<<HANDLE CREATE FUNCTION >>>>>>>>
   // =======================================
-  handlePhotoCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: [data.create]
-      })
-      console.log(this.state.message);
-    }else {
+  handleCreate = (data) => {
+    if (data.errors) {
       this.setState({
         message: data.errors
       })
-      console.log(this.state.message);
+    }else {
+      this.setState({
+        message: [data.create]
+      })
     }
   }
 
@@ -140,7 +138,7 @@ export default class App extends Component {
       }
       else {
         this.setState({
-          message: ["photo updated successfully"]
+          message: [response.update]
         })
       }
     })
@@ -153,35 +151,6 @@ export default class App extends Component {
   }
 
 
-
-
-
-
-
-// ======================================
-// <<<<<<<<< USERS FUNCTIONS >>>>>>>>
-// =======================================
-
-
-
-
-
-// ======================================
-// <<<<<<<HANDLE USER CREATE >>>>>>>>
-// =======================================
-  handleUserCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: ["user created"]
-      })
-      console.log(this.state.message);
-    }else {
-      this.setState({
-        message: data.errors
-      })
-      console.log(this.state.message);
-    }
-  }
 
 
   // ======================================
@@ -288,52 +257,12 @@ export default class App extends Component {
 
 
 
-  // ======================================
-  // <<<<<<<<< LIKE FUNCTIONS>>>>>>>>
-  // =======================================
-  // ======================================
-  // <<<<<<<<< HANDLE LIKE CREATE>>>>>>>>
-  // =======================================
-  handleLikeCreate = (data) => {
-    if(data.warning){
-      this.setState({
-        message: [data.warning]
-      })
-    }
-    else if(data.errors){
-      this.setState({
-        message: [data.errors]
-      })
-    }
-    else {
-      this.setState({
-        message: ["you have liked this"]
-      })
-    }
-  }
 
 
 
 
-  // ======================================
-  // <<<<<<<<< COMMENT FUNCTIONS>>>>>>>>
-  // =======================================
-  // ======================================
-  // <<<<<<<<< HANDLE COMMENT CREATE>>>>>>>>
-  // =======================================
-  handleCommentCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: ["comment created"]
-      })
-      console.log(this.state.message);
-    }else {
-      this.setState({
-        message: data.errors
-      })
-      console.log(this.state.message);
-    }
-  }
+
+
 
 
   // ======================================
@@ -405,8 +334,7 @@ export default class App extends Component {
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
           handleFetchUrl={this.handleFetchUrl}
-          handlePhotoCreate={this.handlePhotoCreate}
-          handleUserCreate={this.handleUserCreate}
+          handleCreate={this.handleCreate}
         />
         <List
           currentView={this.state.currentView}
@@ -418,11 +346,10 @@ export default class App extends Component {
           handleView={this.handleView}
           handleFetchUrl={this.handleFetchUrl}
           handleDelete={this.handleDelete}
+          handleCreate={this.handleCreate}
           handlePhotoUpdate={this.handlePhotoUpdate}
           handleLogoutClick={this.handleLogoutClick}
           handleUserUpdate={this.handleUserUpdate}
-          handleLikeCreate={this.handleLikeCreate}
-          handleCommentCreate={this.handleCommentCreate}
           handleCommentUpdate={this.handleCommentUpdate}
 
         />

@@ -49,7 +49,7 @@ export default class Photo extends Component {
       { withCredentials: true }
     ).then(response => {
       console.log(response.data)
-      this.props.handleCommentCreate(response.data)
+      this.props.handleCreate(response.data)
       this.props.handleFetchUrl('photos')
       this.handleArrayView('commentFormView', 'hide')
       this.clearCommentForm()
@@ -84,13 +84,13 @@ export default class Photo extends Component {
       { withCredentials: true }
     ).then(response => {
       console.log(response.data)
-      this.props.handleLikeCreate(response.data)
+      this.props.handleCreate(response.data)
       this.props.handleFetchUrl('photos')
       this.handleArrayView('likeButtonView', 'hide')
     })
-    console.log(this.props.likeButtonView);
-    console.log(this.props.photo)
-    console.log(this.props.currentUser)
+    .catch((error) => {
+      console.log(error);
+    })
     event.preventDefault()
   }
 
