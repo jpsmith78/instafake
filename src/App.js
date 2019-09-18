@@ -85,7 +85,7 @@ export default class App extends Component {
   handleCreate = (data) => {
     if (data.errors) {
       this.setState({
-        message: data.errors
+        message: [data.errors]
       })
     }else {
       this.setState({
@@ -116,10 +116,10 @@ export default class App extends Component {
   // ======================================
   // <<<<<<<HANDLE PHOTO UPDATE >>>>>>>>
   // =======================================
-  handlePhotoUpdate = (photo, arrayIndex, currentArray) => {
+  handleUpdate = (url, route) => {
 
-    fetch('http://localhost:3000/photos/' + photo.id, {
-      body: JSON.stringify(photo),
+    fetch('http://localhost:3000/' + url + route.id, {
+      body: JSON.stringify(route),
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -144,51 +144,13 @@ export default class App extends Component {
     })
     .then(response =>{
       this.handleFetchUrl('photos')
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
-
-
-  // ======================================
-  // <<<<<<<<HANDLE USER UPDATE>>>>>>>>
-  // =======================================
-  handleUserUpdate = (user, arrayIndex, currentArray) => {
-
-    fetch('http://localhost:3000/users/' + user.id, {
-      body: JSON.stringify(user),
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      console.log(response);
-      if(response.errors){
-        this.setState({
-          message: response.errors
-        })
-      }
-      else {
-        this.setState({
-          message: ["user updated successfully"],
-          currentUser: response
-        })
-      }
       this.handleFetchUrl('users')
     })
     .catch(error => {
       console.log(error);
     })
   }
+
 
 
 
@@ -260,53 +222,6 @@ export default class App extends Component {
 
 
 
-
-
-
-
-
-  // ======================================
-  // <<<<<<<HANDLE COMMENT UPDATE >>>>>>>>
-  // =======================================
-  handleCommentUpdate = (comment, arrayIndex, commentsArray) => {
-
-    fetch('http://localhost:3000/comments/' + comment.id, {
-      body: JSON.stringify(comment),
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      console.log(response);
-      if(response.errors){
-        this.setState({
-          message: response.errors
-        })
-      }
-      else {
-        this.setState({
-          message: ["comment updated successfully"]
-        })
-      }
-    })
-    .then(response =>{
-      this.handleFetchUrl('photos')
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
-
-
-
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
   // =======================================
@@ -347,11 +262,8 @@ export default class App extends Component {
           handleFetchUrl={this.handleFetchUrl}
           handleDelete={this.handleDelete}
           handleCreate={this.handleCreate}
-          handlePhotoUpdate={this.handlePhotoUpdate}
+          handleUpdate={this.handleUpdate}
           handleLogoutClick={this.handleLogoutClick}
-          handleUserUpdate={this.handleUserUpdate}
-          handleCommentUpdate={this.handleCommentUpdate}
-
         />
 
       </div>

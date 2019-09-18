@@ -270,7 +270,9 @@ export default class Photo extends Component {
               <PhotoUpdateForm
                   photo={this.props.photo}
                   arrayIndex={this.props.arrayIndex}
-                  handlePhotoUpdate={this.props.handlePhotoUpdate}
+                  handleUpdate={this.props.handleUpdate}
+                  handleFetchUrl={this.props.handleFetchUrl}
+                  handleView={this.props.handleView}
                 />
             </div>
 
@@ -297,7 +299,7 @@ export default class Photo extends Component {
                           comment={comment}
                           arrayIndex={this.props.arrayIndex}
                           commentsArray={this.props.commentsArray}
-                          handleCommentUpdate={this.props.handleCommentUpdate}
+                          handleUpdate={this.props.handleUpdate}
                         />
                       </div>
 

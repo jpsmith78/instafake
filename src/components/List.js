@@ -39,9 +39,8 @@ export default class List extends Component {
                   handleView={this.props.handleView}
                   handleFetchUrl={this.props.handleFetchUrl}
                   handleDelete={this.props.handleDelete}
-                  handlePhotoUpdate={this.props.handlePhotoUpdate}
-                  handleCreate={this.props.handleCreate}
-                  handleCommentUpdate={this.props.handleCommentUpdate}
+                  handleUpdate={this.props.handleUpdate}
+                  handleCreate={this.props.handleCreate}  
                 />
               )
             })}
@@ -58,7 +57,7 @@ export default class List extends Component {
                     user={user}
                     arrayIndex={index}
                     handleDelete={this.props.handleDelete}
-                    handleUserUpdate={this.props.handleUserUpdate}
+                    handleUpdate={this.props.handleUpdate}
                     currentUser={this.props.currentUser}
                   />
                 )

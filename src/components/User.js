@@ -32,7 +32,7 @@ export default class User extends Component {
             <UserUpdateForm
               user={this.props.user}
               arrayIndex={this.props.arrayIndex}
-              handleUserUpdate={this.props.handleUserUpdate}
+              handleUpdate={this.props.handleUpdate}
             />
           </div>
         : this.props.currentUser.admin ?
@@ -42,7 +42,7 @@ export default class User extends Component {
             <UserUpdateForm
               user={this.props.user}
               arrayIndex={this.props.arrayIndex}
-              handleUserUpdate={this.props.handleUserUpdate}
+              handleUpdate={this.props.handleUpdate}
             />
 
           </div>
