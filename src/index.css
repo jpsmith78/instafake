@@ -6,3 +6,6 @@ body {
   color: white;
   padding: 30px;
 }
+.capital {
+  text-transform: capitalize;
+}

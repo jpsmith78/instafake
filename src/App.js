@@ -85,7 +85,7 @@ export default class App extends Component {
   handleCreate = (data) => {
     if (data.errors) {
       this.setState({
-        message: [data.errors]
+        message: data.errors
       })
     }else {
       this.setState({

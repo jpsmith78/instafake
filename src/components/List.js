@@ -40,7 +40,7 @@ export default class List extends Component {
                   handleFetchUrl={this.props.handleFetchUrl}
                   handleDelete={this.props.handleDelete}
                   handleUpdate={this.props.handleUpdate}
-                  handleCreate={this.props.handleCreate}  
+                  handleCreate={this.props.handleCreate}
                 />
               )
             })}

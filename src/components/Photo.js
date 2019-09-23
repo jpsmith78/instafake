@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PhotoUpdateForm from './PhotoUpdateForm'
 import CommentUpdateForm from './CommentUpdateForm'
+import CommentLikeCreateForm from './CommentLikeCreateForm'
 import Timestamp from 'react-timestamp'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -19,6 +20,7 @@ export default class Photo extends Component {
       likeUserView: 'hide',
       likeButtonView: 'show',
       commentFormView: 'hide'
+
     }
   }
 
@@ -96,8 +98,9 @@ export default class Photo extends Component {
 
 
 
+
   // ===============================
-  // <<<<<HANDLE LIKE USER VIEW>>>>>>>>>
+  // <<<<<HANDLE ARRAY VIEW>>>>>>>>>
   // ===============================
   handleArrayView = (target, view) => {
     this.setState({
@@ -301,10 +304,23 @@ export default class Photo extends Component {
                           commentsArray={this.props.commentsArray}
                           handleUpdate={this.props.handleUpdate}
                         />
+                        
                       </div>
 
-                      : ""
-                    }
+                      :
+                      <div></div>
+                        }
+                      <CommentLikeCreateForm
+                        handleFetchUrl={this.props.handleFetchUrl}
+                        handleDelete={this.props.handleDelete}
+                        handleArrayView={this.handleArrayView}
+                        handleCreate={this.props.handleCreate}
+                        currentUser={this.props.currentUser}
+                        comment={comment}
+                        arrayIndex={this.props.arrayIndex}
+                        commentsArray={this.props.commentsArray}
+                      />
+
               </div>
             )
           })}

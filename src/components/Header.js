@@ -22,8 +22,10 @@ export default class Header extends Component {
           </Row>
           <Row>
             <Col>
-              {this.props.currentUser.id ?
-              <h2>Welcome, {this.props.currentUser.username}</h2>
+              {this.props.currentUser.admin ?
+              <h2>Welcome, <span className="capital">{this.props.currentUser.username}: admin</span></h2>
+              :this.props.currentUser.id ?
+              <h2>Welcome, <span className="capital">{this.props.currentUser.username}</span></h2>
               : "" }
             </Col>
           </Row>
