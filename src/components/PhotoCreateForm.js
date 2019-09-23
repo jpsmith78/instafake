@@ -14,7 +14,6 @@ export default class PhotoCreateForm extends Component {
       title: "",
       picture: "",
       description: "",
-      photoFormView: "hide"
     }
   }
 
@@ -51,11 +50,11 @@ export default class PhotoCreateForm extends Component {
     )
     .then(response => {
       console.log(response.data)
-      this.props.fetchPhotos()
-      this.props.handleView('photos')
+      this.props.handleFetchUrl('photos')
+      this.props.handleView('currentView', 'photos')
+      this.props.handleView('photoFormView', 'hide')
       this.clearPhotoForm()
-      this.props.handlePhotoCreate(response.data)
-      this.handlePhotoCreateView("hide")
+      this.props.handleCreate(response.data)
     })
     .catch(error => {
       console.log(error)
@@ -78,11 +77,6 @@ export default class PhotoCreateForm extends Component {
 // ===============================
 // <<<<<<<<CREATE PHOTO VIEW>>>>>>>>
 // ===============================
-  handlePhotoCreateView = (view) => {
-    this.setState({
-      photoFormView: view
-    })
-  }
 
 
 // ===============================
@@ -91,11 +85,9 @@ export default class PhotoCreateForm extends Component {
   render(){
     return(
       <div>
-        { this.state.photoFormView === "hide" ?
+        { this.props.photoFormView === "hide" ?
           <Button onClick={() => {
-            this.setState({
-              photoFormView: "show"
-            })
+            this.props.handleView('photoFormView', 'show')
           }}>Post Photo</Button>
         :
         <Modal show>
@@ -144,9 +136,7 @@ export default class PhotoCreateForm extends Component {
             <Modal.Footer>
               <Container>
                 <Button onClick={() => {
-                  this.setState({
-                    photoFormView: "hide"
-                  })
+                  this.props.handleView('photoFormView', 'hide')
                 }}>Close</Button>
               </Container>
             </Modal.Footer>

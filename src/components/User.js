@@ -10,7 +10,7 @@ export default class User extends Component {
       <div>
         <h3>{this.props.user.username}</h3>
         <h4>{this.props.user.username} has liked <Pluralize singular={'photo'} count={this.props.user.likes.length} /></h4>
-        <img src={this.props.user.image} alt="broken" width="200px"/>
+        <img src={this.props.user.image} alt={this.props.user.username} width="200px"/>
         <h4>{this.props.user.email}</h4>
         <small>Created on <Timestamp date={this.props.user.created_at}/></small><br/>
         <small>Updated <Timestamp relative  date={this.props.user.updated_at}/></small>
@@ -32,17 +32,17 @@ export default class User extends Component {
             <UserUpdateForm
               user={this.props.user}
               arrayIndex={this.props.arrayIndex}
-              handleUserUpdate={this.props.handleUserUpdate}
+              handleUpdate={this.props.handleUpdate}
             />
           </div>
         : this.props.currentUser.admin ?
           <div>
             <Button onClick={() => {
-              this.props.handleUserDelete(this.props.user.id, this.props.arrayIndex, this.props.currentArray)}}>Delete</Button>
+              this.props.handleDelete('users/' + this.props.user.id, this.props.arrayIndex, 'users')}}>Delete</Button>
             <UserUpdateForm
               user={this.props.user}
               arrayIndex={this.props.arrayIndex}
-              handleUserUpdate={this.props.handleUserUpdate}
+              handleUpdate={this.props.handleUpdate}
             />
 
           </div>

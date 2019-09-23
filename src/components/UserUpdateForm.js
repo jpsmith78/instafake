@@ -33,9 +33,9 @@ export default class UserUpdateForm extends Component {
   // ===============================
   handleUpdateSubmit = (event) => {
     event.preventDefault()
-    this.props.handleUserUpdate(this.state)
+    this.props.handleUpdate('users/', this.state)
     this.handleUserUpdateView("hide")
-    console.log(this.props.user);
+    console.log(this.state);
   }
 
 

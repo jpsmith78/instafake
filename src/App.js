@@ -11,6 +11,8 @@ export default class App extends Component {
 
     this.state = {
       currentView: 'users',
+      photoFormView: 'hide',
+      userFormView: 'hide',
       users: [],
       photos: [],
       loggedInStatus: "NOT LOGGED IN",
@@ -23,12 +25,11 @@ export default class App extends Component {
   // ======================================
   // <<<<<<<<<<HANDLE VIEW FUNCTION >>>>>>>>
   // =======================================
-  handleView = (view) => {
+  handleView = (target, view) => {
     this.setState({
-      currentView: view
+      [target]: view
     })
   }
-
 
 
   // ======================================
@@ -43,12 +44,16 @@ export default class App extends Component {
   // <<<<<<<<< PHOTOS FUNCTIONS >>>>>>>>
   // =======================================
   // ======================================
-  // <<<<<<<<< FETCH PHOTOS >>>>>>>>
+  // <<<<<<HANDLE FETCH URL>>>>>>>
   // =======================================
-  fetchPhotos = () => {
-    axios.get('http://localhost:3000/photos')
+  handleFetchUrl = (route) => {
+    axios.get('http://localhost:3000/' + route)
       .then(response => {
-        this.setPhotos(response.data)
+        if(route === 'photos'){
+          this.setPhotos(response.data)
+        }else if (route === 'users'){
+          this.setUsers(response.data)
+        }
         console.log(response.data)
       })
       .catch((error) => {
@@ -64,111 +69,6 @@ export default class App extends Component {
       photos: photo
     })
   }
-  // ======================================
-  // <<<<<<<HANDLE PHOTO CREATE >>>>>>>>
-  // =======================================
-  handlePhotoCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: ["photo created"]
-      })
-      console.log(this.state.message);
-    }else {
-      this.setState({
-        message: data.errors
-      })
-      console.log(this.state.message);
-    }
-  }
-  // ======================================
-  // <<<<<<<HANDLE PHOTO DELETE >>>>>>>>
-  // =======================================
-  handlePhotoDelete = (id, arrayIndex, currentArray) => {
-    axios.delete('http://localhost:3000/photos/' + id)
-    .then(response => {
-      console.log(response.data)
-      this.setState({
-        message: ["photo successfully deleted"]
-      })
-      this.removeFromArray(currentArray, arrayIndex)
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-  // ======================================
-  // <<<<<<<HANDLE PHOTO UPDATE >>>>>>>>
-  // =======================================
-  handlePhotoUpdate = (photo, arrayIndex, currentArray) => {
-
-    fetch('http://localhost:3000/photos/' + photo.id, {
-      body: JSON.stringify(photo),
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      if(response.errors){
-        this.setState({
-          message: response.errors
-        })
-      }
-      else {
-        this.setState({
-          message: ["photo updated successfully"]
-        })
-      }
-    })
-    .then(response =>{
-      this.fetchPhotos()
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
-// ======================================
-// <<<<<<<<< FOR PHOTOS AND USERS >>>>>>>>
-// =======================================
-// ======================================
-// <<<<<<REMOVE FROM ARRAY>>>>>>>>
-// =======================================
-  removeFromArray = (array, arrayIndex) => {
-    this.setState((prevState) => {
-      prevState[array].splice(arrayIndex, 1)
-      return {
-        [array]: prevState[array]
-      }
-    })
-  }
-
-
-
-// ======================================
-// <<<<<<<<< USERS FUNCTIONS >>>>>>>>
-// =======================================
-// ======================================
-// <<<<<<<<< FETCH USERS >>>>>>>>
-// =======================================
-  fetchUsers = () => {
-    axios.get('http://localhost:3000/users')
-      .then(response => {
-        this.setUsers(response.data)
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
 
   // ======================================
   // <<<<<<SET USERS>>>>>>>>
@@ -179,50 +79,47 @@ export default class App extends Component {
     })
   }
 
-
-// ======================================
-// <<<<<<<HANDLE USER CREATE >>>>>>>>
-// =======================================
-  handleUserCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: ["user created"]
-      })
-      console.log(this.state.message);
-    }else {
+  // ======================================
+  // <<<<<<<HANDLE CREATE FUNCTION >>>>>>>>
+  // =======================================
+  handleCreate = (data) => {
+    if (data.errors) {
       this.setState({
         message: data.errors
       })
-      console.log(this.state.message);
+    }else {
+      this.setState({
+        message: [data.create]
+      })
     }
   }
 
-// ======================================
-// <<<<<<<<HANDLE USER DELETE>>>>>>>>
-// =======================================
-  handleUserDelete = (id, arrayIndex, currentArray) => {
-    axios.delete('http://localhost:3000/users/' + id)
+  // ======================================
+  // <<<<<<<HANDLE DELETE FUNCTION>>>>>>>>
+  // =======================================
+  handleDelete = (id, arrayIndex, currentArray) => {
+    axios.delete('http://localhost:3000/' + id)
     .then(response => {
-      console.log(response.data);
+      console.log(response.data)
+      this.handleFetchUrl('photos')
+      this.handleFetchUrl('users')
       this.setState({
-        message: ["user successfully deleted"]
+        message: [response.data.delete]
       })
-      this.removeFromArray(currentArray, arrayIndex)
-
-
     })
     .catch(error => {
       console.log(error);
     })
   }
 
-  // ======================================
-  // <<<<<<<<HANDLE USER UPDATE>>>>>>>>
-  // =======================================
-  handleUserUpdate = (user, arrayIndex, currentArray) => {
 
-    fetch('http://localhost:3000/users/' + user.id, {
-      body: JSON.stringify(user),
+  // ======================================
+  // <<<<<<<HANDLE PHOTO UPDATE >>>>>>>>
+  // =======================================
+  handleUpdate = (url, route) => {
+
+    fetch('http://localhost:3000/' + url + route.id, {
+      body: JSON.stringify(route),
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -234,7 +131,6 @@ export default class App extends Component {
       return response.json()
     })
     .then(response => {
-      console.log(response);
       if(response.errors){
         this.setState({
           message: response.errors
@@ -242,16 +138,19 @@ export default class App extends Component {
       }
       else {
         this.setState({
-          message: ["user updated successfully"],
-          currentUser: response
+          message: [response.update]
         })
       }
-      this.fetchUsers()
+    })
+    .then(response =>{
+      this.handleFetchUrl('photos')
+      this.handleFetchUrl('users')
     })
     .catch(error => {
       console.log(error);
     })
   }
+
 
 
 
@@ -320,133 +219,15 @@ export default class App extends Component {
 
 
 
-  // ======================================
-  // <<<<<<<<< LIKE FUNCTIONS>>>>>>>>
-  // =======================================
-  // ======================================
-  // <<<<<<<<< HANDLE LIKE CREATE>>>>>>>>
-  // =======================================
-  handleLikeCreate = (data) => {
-    if(data.warning){
-      this.setState({
-        message: [data.warning]
-      })
-    }
-    else if(data.errors){
-      this.setState({
-        message: [data.errors]
-      })
-    }
-    else {
-      this.setState({
-        message: ["you have liked this"]
-      })
-    }
-  }
 
 
-  // ======================================
-  // <<<<<<<<< HANDLE LIKE DELETE>>>>>>>>
-  // =======================================
-  handleLikeDelete = (id, arrayIndex, likesArray) => {
-    axios.delete('http://localhost:3000/likes/' + id)
-    .then(response => {
-      console.log(response.data);
-      this.setState({
-        message: ["You have unliked this"]
-      })
-      this.fetchPhotos()
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
-  // ======================================
-  // <<<<<<<<< COMMENT FUNCTIONS>>>>>>>>
-  // =======================================
-  // ======================================
-  // <<<<<<<<< HANDLE COMMENT CREATE>>>>>>>>
-  // =======================================
-  handleCommentCreate = (data) => {
-    if (!data.errors) {
-      this.setState({
-        message: ["comment created"]
-      })
-      console.log(this.state.message);
-    }else {
-      this.setState({
-        message: data.errors
-      })
-      console.log(this.state.message);
-    }
-  }
-
-
-  // ======================================
-  // <<<<<<<HANDLE COMMENT UPDATE >>>>>>>>
-  // =======================================
-  handleCommentUpdate = (comment, arrayIndex, commentsArray) => {
-
-    fetch('http://localhost:3000/comments/' + comment.id, {
-      body: JSON.stringify(comment),
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      console.log(response);
-      if(response.errors){
-        this.setState({
-          message: response.errors
-        })
-      }
-      else {
-        this.setState({
-          message: ["comment updated successfully"]
-        })
-      }
-    })
-    .then(response =>{
-      this.fetchPhotos()
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
-
-  // ======================================
-  // <<<<<<<<< HANDLE COMMENT DELETE>>>>>>>>
-  // =======================================
-  handleCommentDelete = (id, arrayIndex, commentsArray) => {
-    axios.delete('http://localhost:3000/comments/' + id)
-    .then(response => {
-      console.log(response.data);
-      this.setState({
-        message: ["Comment has been removed"]
-      })
-      this.fetchPhotos()
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
 
   // ======================================
   // <<<<<<<<< COMPONENT DID MOUNT >>>>>>>>
   // =======================================
   componentDidMount(){
-    this.fetchPhotos();
-    this.fetchUsers();
+    this.handleFetchUrl('photos');
+    this.handleFetchUrl('users');
     this.checkLoginStatus();
   }
 
@@ -460,35 +241,29 @@ export default class App extends Component {
       <div>
         <Header
           handleView={this.handleView}
+          photoFormView={this.state.photoFormView}
+          userFormView={this.state.userFormView}
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           handleLogoutClick={this.handleLogoutClick}
           loggedInStatus={this.state.loggedInStatus}
           currentUser={this.state.currentUser}
-          fetchPhotos={this.fetchPhotos}
-          fetchUsers={this.fetchUsers}
-          handlePhotoCreate={this.handlePhotoCreate}
-          handleUserCreate={this.handleUserCreate}
+          handleFetchUrl={this.handleFetchUrl}
+          handleCreate={this.handleCreate}
         />
         <List
           currentView={this.state.currentView}
           photos={this.state.photos}
           users={this.state.users}
-          handlePhotoDelete={this.handlePhotoDelete}
-          handlePhotoUpdate={this.handlePhotoUpdate}
-          handleUserDelete={this.handleUserDelete}
-          handleLogoutClick={this.handleLogoutClick}
-          handleUserUpdate={this.handleUserUpdate}
-          handleLikeCreate={this.handleLikeCreate}
-          handleLikeDelete={this.handleLikeDelete}
-          handleCommentCreate={this.handleCommentCreate}
-          handleCommentUpdate={this.handleCommentUpdate}
-          handleCommentDelete={this.handleCommentDelete}
           currentUser={this.state.currentUser}
           message={this.state.message}
           closeMessage={this.closeMessage}
-          fetchPhotos={this.fetchPhotos}
-
+          handleView={this.handleView}
+          handleFetchUrl={this.handleFetchUrl}
+          handleDelete={this.handleDelete}
+          handleCreate={this.handleCreate}
+          handleUpdate={this.handleUpdate}
+          handleLogoutClick={this.handleLogoutClick}
         />
 
       </div>

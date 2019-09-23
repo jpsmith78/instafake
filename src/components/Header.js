@@ -22,8 +22,10 @@ export default class Header extends Component {
           </Row>
           <Row>
             <Col>
-              {this.props.currentUser.id ?
-              <h2>Welcome, {this.props.currentUser.username}</h2>
+              {this.props.currentUser.admin ?
+              <h2>Welcome, <span className="capital">{this.props.currentUser.username}: admin</span></h2>
+              :this.props.currentUser.id ?
+              <h2>Welcome, <span className="capital">{this.props.currentUser.username}</span></h2>
               : "" }
             </Col>
           </Row>
@@ -32,14 +34,14 @@ export default class Header extends Component {
           <Row className="justify-content-end">
             <Col>
               <Button onClick={() => {
-                this.props.handleView('users')
-                this.props.fetchUsers()
+                this.props.handleView('currentView', 'users')
+                this.props.handleFetchUrl('users')
               }}>Users</Button>
             </Col>
             <Col>
               <Button onClick={() => {
-                this.props.handleView('photos')
-                this.props.fetchPhotos()
+                this.props.handleView('currentView', 'photos')
+                this.props.handleFetchUrl('photos')
               }}>Photos</Button>
             </Col>
             <Col></Col>
@@ -61,16 +63,17 @@ export default class Header extends Component {
               {this.props.currentUser.id ?
 
                 <PhotoCreateForm
-                  fetchPhotos={this.props.fetchPhotos}
-                  fetchUsers={this.props.fetchUsers}
+                  handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
-                  handlePhotoCreate={this.props.handlePhotoCreate}
+                  handleCreate={this.props.handleCreate}
+                  photoFormView={this.props.photoFormView}
                 />
               :
                 <UserCreateForm
-                  fetchUsers={this.props.fetchUsers}
+                  handleFetchUrl={this.props.handleFetchUrl}
                   handleView={this.props.handleView}
-                  handleUserCreate={this.props.handleUserCreate}
+                  handleCreate={this.props.handleCreate}
+                  userFormView={this.props.userFormView}
                 />
               }
             </Col>

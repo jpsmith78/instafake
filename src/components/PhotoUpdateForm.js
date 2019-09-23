@@ -32,9 +32,10 @@ export default class PhotoUpdateForm extends Component {
   // ===============================
   handleUpdateSubmit = (event) => {
     event.preventDefault();
-    this.props.handlePhotoUpdate(this.state)
+    this.props.handleUpdate('photos/', this.state)
     this.handlePhotoUpdateView("hide")
-    console.log(this.props.photo);
+    console.log(this.state);
+
   }
 
 

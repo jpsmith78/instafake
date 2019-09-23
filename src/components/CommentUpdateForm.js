@@ -31,9 +31,9 @@ export default class CommentUpdateForm extends Component {
   // ===============================
   handleUpdateSubmit = (event) => {
     event.preventDefault();
-    this.props.handleCommentUpdate(this.state)
+    this.props.handleUpdate('comments/', this.state)
     this.handleCommentUpdateView("hide")
-    console.log(this.props.comment);
+    console.log(this.state);
   }
 
 
